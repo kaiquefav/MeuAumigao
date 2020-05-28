@@ -1,0 +1,17 @@
+{
+  "name": "MeuAumigao",
+  "displayName": "MeuAumigao",
+  "expo": {
+    "name": "MeuAumigao",
+    "slug": "MeuAumigao",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
