@@ -27,7 +27,9 @@ class RegisterScreen extends React.Component {
       descriptionPos: '',
       passwordPos: '',
       passwordConfirmPos: '',
-      errorFields: { userType: false, name: false, doc: false, phone: false, email: false, description: false, password: false, passwordConfirm: false },
+      errorMessage: '',
+      error: false,
+      errorFields: { userType: false, name: false, doc: false, phone: false, email: false, description: false, password: false, passwordConfirm: false, passwordMatch: false },
       fontLoaded: false,
     };
   }
@@ -43,7 +45,7 @@ class RegisterScreen extends React.Component {
   }
 
   errorHandler = (result) => {
-    let aux = { userType: false, name: false, doc: false, phone: false, email: false, description: false, password: false, passwordConfirm: false };
+    let aux = { userType: false, name: false, doc: false, phone: false, email: false, description: false, password: false, passwordConfirm: false, passwordMatch: false };
     this.setState({ errorFields: aux });
 
     switch (result.field) {
@@ -57,48 +59,57 @@ class RegisterScreen extends React.Component {
         this.passwordConfirmInput.shake();
         break;
       case 'userType':
-        aux = { userType: true, name: false, doc: false, phone: false, email: false, description: false, password: false, passwordConfirm: false }
+        aux = { userType: true, name: false, doc: false, phone: false, email: false, description: false, password: false, passwordConfirm: false, passwordMatch: false }
         this.setState({ errorFields: aux });
-        this.scrollView.scrollTo({ x: 1, y: Window.winHeight * 0.1 , animated: true });
+        this.scrollView.scrollTo({ x: 1, y: Window.winHeight * 0.1, animated: true });
         break;
       case 'name':
-        aux = { userType: false, name: true, doc: false, phone: false, email: false, description: false, password: false, passwordConfirm: false }
+        aux = { userType: false, name: true, doc: false, phone: false, email: false, description: false, password: false, passwordConfirm: false, passwordMatch: false }
         this.setState({ errorFields: aux });
         this.scrollView.scrollTo({ x: 1, y: this.state.namePos, animated: true });
         this.nameInput.shake();
         break;
       case 'doc':
-        aux = { userType: false, name: false, doc: true, phone: false, email: false, description: false, password: false, passwordConfirm: false }
+        aux = { userType: false, name: false, doc: true, phone: false, email: false, description: false, password: false, passwordConfirm: false, passwordMatch: false }
         this.setState({ errorFields: aux });
         this.scrollView.scrollTo({ x: 1, y: this.state.docPos + Window.winHeight * 0.1, animated: true });
         this.docInput.shake();
         break;
       case 'email':
-        aux = { userType: false, name: false, doc: false, phone: false, email: true, description: false, password: false, passwordConfirm: false }
+        aux = { userType: false, name: false, doc: false, phone: false, email: true, description: false, password: false, passwordConfirm: false, passwordMatch: false }
         this.setState({ errorFields: aux });
         this.scrollView.scrollTo({ x: 1, y: this.state.emailPos + Window.winHeight * 0.1, animated: true });
         this.emailInput.shake();
         break;
       case 'phone':
-        aux = { userType: false, name: false, doc: false, phone: true, email: false, description: false, password: false, passwordConfirm: false }
+        aux = { userType: false, name: false, doc: false, phone: true, email: false, description: false, password: false, passwordConfirm: false, passwordMatch: false }
         this.setState({ errorFields: aux });
         this.scrollView.scrollTo({ x: 1, y: this.state.phonePos + Window.winHeight * 0.1, animated: true });
         this.phoneInput.shake();
         break;
       case 'description':
-        aux = { userType: false, name: false, doc: false, phone: false, email: false, description: true, password: false, passwordConfirm: false }
+        aux = { userType: false, name: false, doc: false, phone: false, email: false, description: true, password: false, passwordConfirm: false, passwordMatch: false }
         this.setState({ errorFields: aux });
         this.scrollView.scrollTo({ x: 1, y: this.state.descriptionPos + Window.winHeight * 0.1, animated: true });
         this.descriptionInput.shake();
         break;
       case 'password':
-        aux = { userType: false, name: false, doc: false, phone: false, email: false, description: false, password: true, passwordConfirm: false }
-        this.setState({ errorFields: aux });
+        this.setState({ error: true });
+        if (this.state.password.length < 6) {
+          aux = { userType: false, name: false, doc: false, phone: false, email: false, description: false, password: true, passwordConfirm: false, passwordMatch: false }
+          this.setState({ errorFields: aux });
+          this.passwordInput.shake();
+        }
+        if (this.state.passwordConfirm.length < 6) {
+          this.setState({ error: true });
+          aux = { userType: false, name: false, doc: false, phone: false, email: false, description: false, password: false, passwordConfirm: true, passwordMatch: false }
+          this.setState({ errorFields: aux });
+          this.passwordConfirmInput.shake();
+        }
         this.scrollView.scrollTo({ x: 1, y: this.state.passwordPos + Window.winHeight * 0.1, animated: true });
-        this.passwordInput.shake();
         break;
       case 'passwords':
-        aux = { userType: false, name: false, doc: false, phone: false, email: false, description: false, password: false, passwordConfirm: true }
+        aux = { userType: false, name: false, doc: false, phone: false, email: false, description: false, password: false, passwordConfirm: false, passwordMatch: true }
         this.setState({ errorFields: aux });
         this.scrollView.scrollTo({ x: 1, y: this.state.passwordPos + Window.winHeight * 0.1, animated: true });
         this.passwordInput.shake();
@@ -111,14 +122,21 @@ class RegisterScreen extends React.Component {
 
   handleRegister = () => {
     const { name, doc, email, phone, description, password, passwordConfirm, userType } = this.state;
+    this.setState({ error: false });
     let result = Validation.RegisterValidation(name, doc, email, phone, description, password, passwordConfirm, userType);
     if (result.validate !== true) {
-      this.errorHandler(result);
+      this.setState({ errorMessage: result.validate }, () => this.errorHandler(result));
     }
-    else console.log('Sucesso');
+    else {
+      let aux = { userType: false, name: false, doc: false, phone: false, email: false, description: false, password: false, passwordConfirm: false, passwordMatch: false };
+      this.setState({ errorFields: aux });
+      this.props.navigation.navigate('Preferences');
+    }
   }
 
   render() {
+    console.log(this.state.errorFields);
+    console.log(this.state.errorMessage);
     return (
       this.state.fontLoaded ?
         (<S.FullScrollView ref={(ref) => { this.scrollView = ref; }}>
@@ -257,6 +275,10 @@ class RegisterScreen extends React.Component {
               value={this.state.doc}
               onChangeText={(input) => { this.setState({ doc: input }) }}
             />
+            {this.state.errorFields.doc
+              ? (<S.ErrorText>{this.state.errorMessage}</S.ErrorText>)
+              : null
+            }
 
             <S.InputTitleText onLayout={(event) => this.setState({ emailPos: event.nativeEvent.layout.y })}
             >E-mail</S.InputTitleText>
@@ -274,7 +296,12 @@ class RegisterScreen extends React.Component {
               placeholderTextColor={'#919191'}
               value={this.state.email}
               onChangeText={(input) => { this.setState({ email: input }) }}
+              autoCapitalize='none'
             />
+            {this.state.errorFields.email
+              ? (<S.ErrorText>{this.state.errorMessage}</S.ErrorText>)
+              : null
+            }
 
             <S.InputTitleText onLayout={(event) => this.setState({ phonePos: event.nativeEvent.layout.y })}
             >Contato</S.InputTitleText>
@@ -293,6 +320,10 @@ class RegisterScreen extends React.Component {
               value={this.state.phone}
               onChangeText={(input) => { this.setState({ phone: input }) }}
             />
+            {this.state.errorFields.phone
+              ? (<S.ErrorText>{this.state.errorMessage}</S.ErrorText>)
+              : null
+            }
 
             <S.InputTitleText onLayout={(event) => this.setState({ descriptionPos: event.nativeEvent.layout.y })}
             >Descrição</S.InputTitleText>
@@ -315,6 +346,10 @@ class RegisterScreen extends React.Component {
               value={this.state.description}
               onChangeText={(input) => { this.setState({ description: input }) }}
             />
+            {this.state.errorFields.description
+              ? (<S.ErrorText>{this.state.errorMessage}</S.ErrorText>)
+              : null
+            }
 
             <S.InputTitleText onLayout={(event) => this.setState({ passwordPos: event.nativeEvent.layout.y })}
             >Senha</S.InputTitleText>
@@ -322,7 +357,7 @@ class RegisterScreen extends React.Component {
               ref={(ref) => { this.passwordInput = ref; }}
               containerStyle={{ width: Window.winWidth * 0.8, paddingHorizontal: 0 }}
               inputStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
-              inputContainerStyle={this.state.errorFields.password
+              inputContainerStyle={this.state.errorFields.password || this.state.errorFields.passwordMatch
                 ? { backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(252, 3, 3, 0.4)' }
                 : { backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(0, 0, 0, 0.1)' }
               }
@@ -333,7 +368,23 @@ class RegisterScreen extends React.Component {
               placeholderTextColor={'#919191'}
               value={this.state.password}
               onChangeText={(input) => { this.setState({ password: input }) }}
+              clearTextOnFocus={false}
+              clearButtonMode='while-editing'
+
             />
+            {this.state.password.length < 6 && this.state.error
+              ? (
+                this.state.errorFields.password
+                  ? (<S.ErrorText>{this.state.errorMessage}</S.ErrorText>)
+                  : null
+              )
+              : (
+                this.state.errorFields.passwordMatch
+                  ? (<S.ErrorText>{this.state.errorMessage}</S.ErrorText>)
+                  : null
+              )
+            }
+
 
             <S.InputTitleText onLayout={(event) => this.setState({ passwordConfirmPos: event.nativeEvent.layout.y })}
             >Confirmar Senha</S.InputTitleText>
@@ -341,7 +392,7 @@ class RegisterScreen extends React.Component {
               ref={(ref) => { this.passwordConfirmInput = ref; }}
               containerStyle={{ width: Window.winWidth * 0.8, paddingHorizontal: 0 }}
               inputStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
-              inputContainerStyle={this.state.errorFields.password
+              inputContainerStyle={this.state.errorFields.passwordConfirm || this.state.errorFields.passwordMatch
                 ? { backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(252, 3, 3, 0.4)' }
                 : { backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(0, 0, 0, 0.1)' }
               }
@@ -352,16 +403,27 @@ class RegisterScreen extends React.Component {
               placeholderTextColor={'#919191'}
               value={this.state.passwordConfirm}
               onChangeText={(input) => { this.setState({ passwordConfirm: input }) }}
+              clearTextOnFocus={false}
+              clearButtonMode='while-editing'
             />
+            {this.state.passwordConfirm.length < 6 && this.state.error
+              ? (
+                this.state.errorFields.passwordConfirm
+                  ? (<S.ErrorText>{this.state.errorMessage}</S.ErrorText>)
+                  : null
+              )
+              : (
+                this.state.errorFields.passwordMatch
+                  ? (<S.ErrorText>{this.state.errorMessage}</S.ErrorText>)
+                  : null
+              )
+            }
 
           </S.RegisterTextInputView>
 
           <S.RegisterTouchableOpacity
             activeOpacity={0.5}
-            onPress={() => this.handleRegister()}
-          // this.props.navigation.navigate('Preferences')}>
-          // onPress={() => this.passwordConfirmInput.shake()}>
-          >
+            onPress={() => this.handleRegister()}>
             <S.RegisterText>Próximo</S.RegisterText>
           </S.RegisterTouchableOpacity>
 

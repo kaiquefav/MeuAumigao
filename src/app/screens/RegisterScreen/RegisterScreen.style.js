@@ -59,6 +59,15 @@ const InputTitleText = styled.Text`
   margin-bottom: 2%;
 `;
 
+const ErrorText = styled.Text`
+  font-family: Bellota-Regular;
+  color: red;
+  align-self: center;
+  font-size: ${Platform.OS === 'ios' ? '17px' : '14px'};
+  margin-bottom: 6%;
+  margin-top: -4%;
+`;
+
 const RegisterText = styled.Text`
   font-family: Bellota-Bold;
   color: #FFF;
@@ -89,6 +98,7 @@ export {
   CheckboxText,
   InputTitleText,
   RegisterText,
+  ErrorText,
   RegisterTouchableOpacity,
   RegisterTextInput,
 };
