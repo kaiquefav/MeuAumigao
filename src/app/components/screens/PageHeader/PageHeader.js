@@ -1,5 +1,6 @@
 import React from 'react';
 import * as S from './PageHeader.style';
+import { Icon } from 'native-base';
 
 class PageHeader extends React.Component {
 
@@ -14,9 +15,14 @@ class PageHeader extends React.Component {
       <S.ContainerView color={color}>
 
         {backButton && (<S.BackArrowTouchableOpacity onPress={onPress}>
-          <S.BackArrowImage
-            source={require('../../../assets/png/ic_back_arrow_button.png')}
-            resizeMode='contain'
+          <Icon
+            type="AntDesign"
+            name="arrowleft"
+            style={{
+              fontSize: 23,
+              color: 'rgb(81, 81, 81)',
+              top: '40%',
+            }}
           />
         </S.BackArrowTouchableOpacity>)}
 

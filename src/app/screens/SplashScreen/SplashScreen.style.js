@@ -5,7 +5,7 @@ const ContainerView = styled.View`
   flex: 1;
   align-items:center;
   justify-content:center;
-  background-color: rgb(250, 250, 250);
+  background-color: #f1f1f1;
 `;
 
 const LogoImage = styled.Image`

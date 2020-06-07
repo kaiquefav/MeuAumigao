@@ -3,59 +3,51 @@ import * as Window from '../../utils/windowDimensions/WindowDimensions';
 import { Picker } from 'native-base';
 import PageHeader from '../../components/screens/PageHeader/PageHeader';
 
-
-const RegisterTextInput = styled(Picker)`
-  background-color: white;
-  height: ${Window.winHeight * 0.05}px;
-  width: ${Window.winWidth * 0.8}px;
-  border-width: 0.5px;
-  border-color: #000;
-  margin-bottom: ${Window.winHeight * 0.04}px;
-  align-self: center;
-  align-items: center;
-`;
-
 const Header = styled(PageHeader)`
 `;
 
 const HeaderView = styled.View`
   flex: 1;
   background-color: transparent;
+  padding-horizontal: 7%;
 `;
 
 const FullScrollView = styled.ScrollView`
   flex: 1;
   background-color: #f1f1f1;
-  padding-horizontal: 7%;
+  /* padding-horizontal: 7%; */
 `;
 
-const RegisterTextInputView = styled.View`
+const PetImageView = styled.View`
   flex: 1;
-  margin-top: 15%;
-  margin-bottom: 10%;
-  align-self:flex-start;
 `;
 
-const InputTitleView = styled.View`
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 1.5%;
+const TextView = styled.View`
+  margin-top: ${Window.winHeight * 0.03}px;
 `;
 
 const LoginTitleText = styled.Text`
   font-family: Bellota-Bold;
   color: rgb(81, 81, 81);
-  font-size: ${Platform.OS === 'ios' ? '23px' : '19px'};
+  font-size: ${Platform.OS === 'ios' ? '30px' : '24px'};
   align-self: center;
   text-align: center;
-  margin-top: 15%;
+  margin-top: 5%;
 `;
 
-const InputTitleText = styled.Text`
+const LoginSubTitleText = styled.Text`
+  font-family: Bellota-Bold;
+  color: rgb(81, 81, 81);
+  font-size: ${Platform.OS === 'ios' ? '23px' : '18px'};
+  padding-horizontal: 7%;
+`;
+
+const LoginSubText = styled.Text`
   font-family: Bellota-Regular;
   color: rgb(81, 81, 81);
-  font-size: ${Platform.OS === 'ios' ? '17px' : '14px'};
-  margin-bottom: 2%;
+  font-size: ${Platform.OS === 'ios' ? '18px' : '15px'};
+  margin-top: 1%;
+  padding-horizontal: 7%;
 `;
 
 const RegisterText = styled.Text`
@@ -67,39 +59,31 @@ const RegisterText = styled.Text`
   align-self: center;
 `;
 
-const LogoImage = styled.Image`
-  height: ${Window.winHeight * 0.25}px;
-  width: ${Window.winWidth * 0.65}px;
-  margin-top: -11%;
-  margin-bottom: -25%;
-  align-self: center;
-`;
-
 const RegisterTouchableOpacity = styled.TouchableOpacity`
   background-color: rgb(0, 104, 191);
   align-self: center;
   border-width: 0.5px;
   border-radius: 5px;
+  margin-top: ${Window.winHeight * 0.1}px;
   margin-bottom: 20%;
 `;
 
-const BackArrowImage = styled.Image`
-  height: ${Window.winHeight * 0.04}px;
-  width: ${Window.winWidth * 0.04}px;
-  margin-right: 5%;
+const PetImage = styled.Image`
+  margin-top: 7%;
+  height: ${Window.winHeight * 0.4}px;
+  width: ${Window.winWidth * 1}px;
 `;
 
 export {
   Header,
   HeaderView,
   FullScrollView,
-  RegisterTextInputView,
-  InputTitleView,
+  PetImageView,
+  TextView,
   LoginTitleText,
-  InputTitleText,
+  LoginSubTitleText,
+  LoginSubText,
   RegisterText,
-  LogoImage,
   RegisterTouchableOpacity,
-  RegisterTextInput,
-  BackArrowImage,
+  PetImage,
 };

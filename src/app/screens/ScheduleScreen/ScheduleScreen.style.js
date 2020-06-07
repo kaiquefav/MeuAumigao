@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import * as Window from '../../utils/windowDimensions/WindowDimensions';
 import { Picker } from 'native-base';
 import PageHeader from '../../components/screens/PageHeader/PageHeader';
+import PetCard from '../../components/screens/ScheduleScreen/PetCard/PetCard';
 
 
 const RegisterTextInput = styled(Picker)`
@@ -18,6 +19,9 @@ const RegisterTextInput = styled(Picker)`
 const Header = styled(PageHeader)`
 `;
 
+const PetsCards = styled(PetCard)`
+`;
+
 const HeaderView = styled.View`
   flex: 1;
   background-color: transparent;
@@ -29,17 +33,8 @@ const FullScrollView = styled.ScrollView`
   padding-horizontal: 7%;
 `;
 
-const RegisterTextInputView = styled.View`
-  flex: 1;
-  margin-top: 15%;
+const PetsCardsView = styled.ScrollView`
   margin-bottom: 10%;
-  align-self:flex-start;
-`;
-
-const InputTitleView = styled.View`
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 1.5%;
 `;
 
 const LoginTitleText = styled.Text`
@@ -48,31 +43,8 @@ const LoginTitleText = styled.Text`
   font-size: ${Platform.OS === 'ios' ? '23px' : '19px'};
   align-self: center;
   text-align: center;
-  margin-top: 15%;
-`;
-
-const InputTitleText = styled.Text`
-  font-family: Bellota-Regular;
-  color: rgb(81, 81, 81);
-  font-size: ${Platform.OS === 'ios' ? '17px' : '14px'};
-  margin-bottom: 2%;
-`;
-
-const RegisterText = styled.Text`
-  font-family: Bellota-Bold;
-  color: #FFF;
-  font-size: ${Platform.OS === 'ios' ? '20px' : '15px'};
-  padding-vertical: ${Platform.OS === 'ios' ? `${Window.winHeight * 0.029}px` : '3%'};
-  padding-horizontal: ${Platform.OS === 'ios' ? '30%' : '25%'};
-  align-self: center;
-`;
-
-const LogoImage = styled.Image`
-  height: ${Window.winHeight * 0.25}px;
-  width: ${Window.winWidth * 0.65}px;
-  margin-top: -11%;
-  margin-bottom: -25%;
-  align-self: center;
+  margin-top: 10%;
+  margin-bottom: 10%;
 `;
 
 const RegisterTouchableOpacity = styled.TouchableOpacity`
@@ -83,23 +55,13 @@ const RegisterTouchableOpacity = styled.TouchableOpacity`
   margin-bottom: 20%;
 `;
 
-const BackArrowImage = styled.Image`
-  height: ${Window.winHeight * 0.04}px;
-  width: ${Window.winWidth * 0.04}px;
-  margin-right: 5%;
-`;
-
 export {
   Header,
+  PetsCards,
   HeaderView,
   FullScrollView,
-  RegisterTextInputView,
-  InputTitleView,
+  PetsCardsView,
   LoginTitleText,
-  InputTitleText,
-  RegisterText,
-  LogoImage,
   RegisterTouchableOpacity,
   RegisterTextInput,
-  BackArrowImage,
 };

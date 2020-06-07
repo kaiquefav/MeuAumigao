@@ -8,6 +8,7 @@ const ContainerView = styled.View`
 
 const BackArrowTouchableOpacity = styled.TouchableOpacity`
   align-self: flex-start;
+  padding-horizontal: 3%;
   position: absolute;
 `;
 
@@ -17,14 +18,9 @@ const LogoImage = styled.Image`
   align-self: center;
 `;
 
-const BackArrowImage = styled.Image`
-  height: ${Window.winHeight * 0.04}px;
-  width: ${Window.winWidth * 0.04}px;
-`;
 
 export {
   ContainerView,
   BackArrowTouchableOpacity,
   LogoImage,
-  BackArrowImage,
 };

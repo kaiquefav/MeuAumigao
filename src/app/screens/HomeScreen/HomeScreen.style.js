@@ -3,6 +3,7 @@ import * as Window from '../../utils/windowDimensions/WindowDimensions';
 import PetCard from '../../components/screens/HomeScreen/PetCard/PetCard';
 import Carousel from 'react-native-snap-carousel';
 import PageHeader from '../../components/screens/PageHeader/PageHeader';
+import PetsButton from '../../components/shared/PetsButton/PetsButton';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const Header = styled(PageHeader)`
@@ -14,13 +15,21 @@ const PetsCarousel = styled(Carousel)`
 const PetsCard = styled(PetCard)`
 `;
 
+const PetButton = styled(PetsButton)`
+`;
+
+
 const FullView = styled.ScrollView`
   flex: 1;
-  background-color: transparent;
+  background-color: #f1f1f1;
 `;
 
 const LinearView = styled(LinearGradient)`
   flex: 1;
+`;
+
+const PetButtonView = styled.View`
+  margin-top: 10%;
 `;
 
 const PetsCarouselView = styled.View`
@@ -34,7 +43,7 @@ const LoginTitleText = styled.Text`
   font-size: ${Platform.OS === 'ios' ? '25px' : '20px'};
   align-self: center;
   text-align: center;
-  margin-top: ${Platform.OS === 'ios' ? '8%' : '6%'};
+  margin-top: ${Platform.OS === 'ios' ? '5%' : '3%'};
 `;
 
 const SeeMoreTouchableOpacityText = styled.Text`
@@ -55,8 +64,10 @@ export {
   Header,
   PetsCarousel,
   PetsCard,
+  PetButton,
   FullView,
   LinearView,
+  PetButtonView,
   PetsCarouselView,
   LoginTitleText,
   SeeMoreTouchableOpacityText,

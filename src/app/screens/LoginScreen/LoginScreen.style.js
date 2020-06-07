@@ -8,8 +8,8 @@ const Header = styled(PageHeader)`
 
 const FullScrollView = styled.ScrollView`
   flex: 1;
-  background-color: rgb(250, 250, 250);
-  padding-horizontal: 10%;
+  background-color: #f1f1f1;
+  padding-horizontal: 7%;
 `;
 
 const FullView = styled.View`
@@ -92,7 +92,7 @@ const LoginTouchableOpacity = styled.TouchableOpacity`
 `;
 
 const RegisterTouchableOpacity = styled.TouchableOpacity`
-  padding-horizontal: 10%;
+  padding-horizontal: 7%;
   align-self: center;
 `;
 

@@ -92,8 +92,8 @@ class PreferencesScreen extends React.Component {
             <S.RegisterTextInput
               iosHeader='Tamanho?'
               headerStyle={{ backgroundColor: ' rgb(255, 246, 222)' }}
-              textStyle={{ fontSize: Platform.OS === 'ios' ? 14 : 13, fontFamily: 'Bellota-Light' }}
-              itemTextStyle={{ fontSize: Platform.OS === 'ios' ? 17 : 13, fontFamily: 'Bellota-Light' }}
+              textStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
+              itemTextStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
               iosIcon={
                 <S.BackArrowImage
                   source={require('../../assets/png/ic_down_black_arrow_button.png')}
@@ -130,8 +130,8 @@ class PreferencesScreen extends React.Component {
             <S.InputTitleText>Idade</S.InputTitleText>
             <S.RegisterTextInput
               iosHeader='Idade?'
-              textStyle={{ fontSize: Platform.OS === 'ios' ? 14 : 13, fontFamily: 'Bellota-Light' }}
-              itemTextStyle={{ fontSize: Platform.OS === 'ios' ? 17 : 13, fontFamily: 'Bellota-Light' }}
+              textStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
+              itemTextStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
               iosIcon={
                 <S.BackArrowImage
                   source={require('../../assets/png/ic_down_black_arrow_button.png')}
@@ -168,8 +168,8 @@ class PreferencesScreen extends React.Component {
             <S.InputTitleText>Comportamento</S.InputTitleText>
             <S.RegisterTextInput
               iosHeader='Comportamento?'
-              textStyle={{ fontSize: Platform.OS === 'ios' ? 14 : 13, fontFamily: 'Bellota-Light' }}
-              itemTextStyle={{ fontSize: Platform.OS === 'ios' ? 17 : 13, fontFamily: 'Bellota-Light' }}
+              textStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
+              itemTextStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
               iosIcon={
                 <S.BackArrowImage
                   source={require('../../assets/png/ic_down_black_arrow_button.png')}

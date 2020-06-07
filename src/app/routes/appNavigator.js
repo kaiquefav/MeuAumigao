@@ -10,6 +10,8 @@ import PreferencesScreen from '../screens/PreferencesScreen/PreferencesScreen';
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
 import PreferencesProfileScreen from '../screens/PreferencesProfileScreen/PreferencesProfileScreen';
+import ScheduleScreen from '../screens/ScheduleScreen/ScheduleScreen';
+import PetScreen from '../screens/PetScreen/PetScreen';
 
 import AppTabNavigator from './AppTabNavigator';
 
@@ -73,6 +75,18 @@ function appNavigator() {
         options={{ gestureEnabled: false, headerShown: false }}
       />
 
+      <Stack.Screen
+        name="Schedule"
+        component={ScheduleScreen}
+        options={{ gestureEnabled: false, headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="Pet"
+        component={PetScreen}
+        options={{ gestureEnabled: false, headerShown: false }}
+      />
+      
     </Stack.Navigator>
   );
 }

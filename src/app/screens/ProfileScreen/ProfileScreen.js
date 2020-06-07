@@ -3,6 +3,8 @@ import * as S from './ProfileScreen.style';
 import * as Window from '../../utils/windowDimensions/WindowDimensions';
 import { ActivityIndicator } from 'react-native';
 import * as Font from 'expo-font';
+import { AirbnbRating } from 'react-native-elements';
+import { Icon } from 'native-base';
 
 class ProfileScreen extends React.Component {
   constructor(props) {
@@ -15,7 +17,8 @@ class ProfileScreen extends React.Component {
       description: 'Uma ONG que proporciona uma ajuda à estes animaizinhos que estão nessa situação de abandono nas ruas. Toda ajuda é bem vinda. Para contato, ligue: (11) 1111-1111.',
       password: '123123',
       passwordConfirm: '123123',
-      profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSfiFWGJNvim2mcln-E36Qzy3278R8dzlzdIxiy3uEhxaE7YQ9S&usqp=CAU',
+      //profilePic: 'https://www.clubedohardware.com.br/uploads/monthly_2019_09/imported-photo-758396.thumb.jpeg.8b8a40db89e907847becefa903b037b6.jpeg',
+      rating: 5,
       fontLoaded: false,
     };
   }
@@ -138,8 +141,20 @@ class ProfileScreen extends React.Component {
               onChangeText={(input) => { this.setState({ password: input }) }}
             />
 
-          </S.RegisterTextInputView>
+            <S.InputTitleText>Sua pontuação</S.InputTitleText>
 
+            <S.RatingView>
+              <AirbnbRating
+                count={10}
+                defaultRating={this.state.rating}
+                size={16}
+                starStyle={{ backgroundColor: 'transparent', marginRight: '1%' }}
+                showRating={false}
+                isDisabled={true}
+              />
+            </S.RatingView>
+
+          </S.RegisterTextInputView>
 
           <S.RegisterTouchableOpacity
             activeOpacity={0.5}

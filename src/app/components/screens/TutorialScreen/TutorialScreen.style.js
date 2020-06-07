@@ -15,7 +15,7 @@ const LoadingView = styled.View`
 `;
 
 const TopView = styled.View`
-  background-color: rgba(235, 207, 52, 0.3);
+  background-color: #f1f1f1;
   height: ${Window.winHeight * 0.55}px;
   width: ${Window.winWidth * 1}px;
   border-bottom-width: 0.5px;
@@ -29,7 +29,7 @@ const BottomView = styled.View`
   justify-content: center;
   align-self: center;
   align-items: center;
-  padding-horizontal: 10%;
+  padding-horizontal: 7%;
 `;
 
 const TitleText = styled.Text`

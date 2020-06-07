@@ -5,6 +5,7 @@ import { Icon } from 'native-base';
 import * as Window from '../../utils/windowDimensions/WindowDimensions';
 import { ActivityIndicator, Platform } from 'react-native';
 import * as Font from 'expo-font'
+import * as Validation from '../../utils/Validations/validations';
 
 class RegisterScreen extends React.Component {
   constructor(props) {
@@ -12,11 +13,21 @@ class RegisterScreen extends React.Component {
     this.state = {
       userType: [false, true],
       name: '',
-      CPF: '',
+      doc: '',
+      phone: '',
       email: '',
       description: '',
       password: '',
       passwordConfirm: '',
+      userTypePos: '',
+      namePos: '',
+      docPos: '',
+      phonePos: '',
+      emailPos: '',
+      descriptionPos: '',
+      passwordPos: '',
+      passwordConfirmPos: '',
+      errorFields: { userType: false, name: false, doc: false, phone: false, email: false, description: false, password: false, passwordConfirm: false },
       fontLoaded: false,
     };
   }
@@ -31,10 +42,86 @@ class RegisterScreen extends React.Component {
     this.setState({ fontLoaded: true });
   }
 
+  errorHandler = (result) => {
+    let aux = { userType: false, name: false, doc: false, phone: false, email: false, description: false, password: false, passwordConfirm: false };
+    this.setState({ errorFields: aux });
+
+    switch (result.field) {
+      case 'all':
+        this.nameInput.shake();
+        this.docInput.shake();
+        this.emailInput.shake();
+        this.phoneInput.shake();
+        this.descriptionInput.shake();
+        this.passwordInput.shake();
+        this.passwordConfirmInput.shake();
+        break;
+      case 'userType':
+        aux = { userType: true, name: false, doc: false, phone: false, email: false, description: false, password: false, passwordConfirm: false }
+        this.setState({ errorFields: aux });
+        this.scrollView.scrollTo({ x: 1, y: Window.winHeight * 0.1 , animated: true });
+        break;
+      case 'name':
+        aux = { userType: false, name: true, doc: false, phone: false, email: false, description: false, password: false, passwordConfirm: false }
+        this.setState({ errorFields: aux });
+        this.scrollView.scrollTo({ x: 1, y: this.state.namePos, animated: true });
+        this.nameInput.shake();
+        break;
+      case 'doc':
+        aux = { userType: false, name: false, doc: true, phone: false, email: false, description: false, password: false, passwordConfirm: false }
+        this.setState({ errorFields: aux });
+        this.scrollView.scrollTo({ x: 1, y: this.state.docPos + Window.winHeight * 0.1, animated: true });
+        this.docInput.shake();
+        break;
+      case 'email':
+        aux = { userType: false, name: false, doc: false, phone: false, email: true, description: false, password: false, passwordConfirm: false }
+        this.setState({ errorFields: aux });
+        this.scrollView.scrollTo({ x: 1, y: this.state.emailPos + Window.winHeight * 0.1, animated: true });
+        this.emailInput.shake();
+        break;
+      case 'phone':
+        aux = { userType: false, name: false, doc: false, phone: true, email: false, description: false, password: false, passwordConfirm: false }
+        this.setState({ errorFields: aux });
+        this.scrollView.scrollTo({ x: 1, y: this.state.phonePos + Window.winHeight * 0.1, animated: true });
+        this.phoneInput.shake();
+        break;
+      case 'description':
+        aux = { userType: false, name: false, doc: false, phone: false, email: false, description: true, password: false, passwordConfirm: false }
+        this.setState({ errorFields: aux });
+        this.scrollView.scrollTo({ x: 1, y: this.state.descriptionPos + Window.winHeight * 0.1, animated: true });
+        this.descriptionInput.shake();
+        break;
+      case 'password':
+        aux = { userType: false, name: false, doc: false, phone: false, email: false, description: false, password: true, passwordConfirm: false }
+        this.setState({ errorFields: aux });
+        this.scrollView.scrollTo({ x: 1, y: this.state.passwordPos + Window.winHeight * 0.1, animated: true });
+        this.passwordInput.shake();
+        break;
+      case 'passwords':
+        aux = { userType: false, name: false, doc: false, phone: false, email: false, description: false, password: false, passwordConfirm: true }
+        this.setState({ errorFields: aux });
+        this.scrollView.scrollTo({ x: 1, y: this.state.passwordPos + Window.winHeight * 0.1, animated: true });
+        this.passwordInput.shake();
+        this.passwordConfirmInput.shake();
+        break;
+      default:
+        break;
+    }
+  }
+
+  handleRegister = () => {
+    const { name, doc, email, phone, description, password, passwordConfirm, userType } = this.state;
+    let result = Validation.RegisterValidation(name, doc, email, phone, description, password, passwordConfirm, userType);
+    if (result.validate !== true) {
+      this.errorHandler(result);
+    }
+    else console.log('Sucesso');
+  }
+
   render() {
     return (
       this.state.fontLoaded ?
-        (<S.FullScrollView>
+        (<S.FullScrollView ref={(ref) => { this.scrollView = ref; }}>
 
           <S.HeaderView>
             <S.Header
@@ -52,8 +139,11 @@ class RegisterScreen extends React.Component {
             {`é muito rápido!`}
           </S.LoginTitleText>
 
-          <S.CheckboxView>
+          <S.CheckboxView
+            onLayout={(event) => this.setState({ userTypePos: event.nativeEvent.layout.y })}
+          >
             <CheckBox
+              ref={(ref) => { this.userTypeInput = ref; }}
               containerStyle={{
                 borderWidth: 0,
                 padding: 0,
@@ -77,10 +167,15 @@ class RegisterScreen extends React.Component {
               uncheckedIcon={(<Icon
                 type="MaterialCommunityIcons"
                 name="checkbox-blank-circle-outline"
-                style={{
-                  fontSize: 20,
-                  color: 'rgb(81, 81, 81)'
-                }}
+                style={this.state.errorFields.userType
+                  ? {
+                    fontSize: 20,
+                    color: 'red'
+                  }
+                  : {
+                    fontSize: 20,
+                    color: 'rgb(0, 104, 191)'
+                  }}
               />)}
             />
             <S.CheckboxText checked={this.state.userType[0]}>ONG</S.CheckboxText>
@@ -108,10 +203,15 @@ class RegisterScreen extends React.Component {
               uncheckedIcon={(<Icon
                 type="MaterialCommunityIcons"
                 name="checkbox-blank-circle-outline"
-                style={{
-                  fontSize: 20,
-                  color: 'rgb(81, 81, 81)'
-                }}
+                style={this.state.errorFields.userType
+                  ? {
+                    fontSize: 20,
+                    color: 'red'
+                  }
+                  : {
+                    fontSize: 20,
+                    color: 'rgb(0, 104, 191)'
+                  }}
               />)}
             />
             <S.CheckboxText checked={this.state.userType[1]}>Adotante</S.CheckboxText>
@@ -119,12 +219,16 @@ class RegisterScreen extends React.Component {
 
           <S.RegisterTextInputView>
 
-            <S.InputTitleText>Nome</S.InputTitleText>
+            <S.InputTitleText onLayout={(event) => this.setState({ namePos: event.nativeEvent.layout.y })}
+            >Nome</S.InputTitleText>
             <S.RegisterTextInput
               ref={(ref) => { this.nameInput = ref; }}
               containerStyle={{ width: Window.winWidth * 0.8, paddingHorizontal: 0 }}
               inputStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
-              inputContainerStyle={{ backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(0, 0, 0, 0.1)' }}
+              inputContainerStyle={this.state.errorFields.name
+                ? { backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(252, 3, 3, 0.4)' }
+                : { backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(0, 0, 0, 0.1)' }
+              }
               autoCapitalize='words'
               keyboardType='default'
               maxLength={30}
@@ -134,29 +238,36 @@ class RegisterScreen extends React.Component {
               onChangeText={(input) => { this.setState({ name: input }) }}
             />
             {this.state.userType[0] === true
-              ? (<S.InputTitleText>CPNJ</S.InputTitleText>)
-              : (<S.InputTitleText>CPF</S.InputTitleText>)
+              ? (<S.InputTitleText onLayout={(event) => this.setState({ docPos: event.nativeEvent.layout.y })}>CPNJ</S.InputTitleText>)
+              : (<S.InputTitleText onLayout={(event) => this.setState({ docPos: event.nativeEvent.layout.y })}>CPF</S.InputTitleText>)
             }
 
             <S.RegisterTextInput
               ref={(ref) => { this.docInput = ref; }}
               containerStyle={{ width: Window.winWidth * 0.8, paddingHorizontal: 0 }}
               inputStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
-              inputContainerStyle={{ backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(0, 0, 0, 0.1)' }}
+              inputContainerStyle={this.state.errorFields.doc
+                ? { backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(252, 3, 3, 0.4)' }
+                : { backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(0, 0, 0, 0.1)' }
+              }
               keyboardType='numbers-and-punctuation'
               maxLength={14}
               placeholder={this.state.userType[0] === true ? 'Entre com seu CNPJ' : 'Entre com seu CPF'}
               placeholderTextColor={'#919191'}
-              value={this.state.CPF}
-              onChangeText={(input) => { this.setState({ CPF: input }) }}
+              value={this.state.doc}
+              onChangeText={(input) => { this.setState({ doc: input }) }}
             />
 
-            <S.InputTitleText>E-mail</S.InputTitleText>
+            <S.InputTitleText onLayout={(event) => this.setState({ emailPos: event.nativeEvent.layout.y })}
+            >E-mail</S.InputTitleText>
             <S.RegisterTextInput
               ref={(ref) => { this.emailInput = ref; }}
               containerStyle={{ width: Window.winWidth * 0.8, paddingHorizontal: 0 }}
               inputStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
-              inputContainerStyle={{ backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(0, 0, 0, 0.1)' }}
+              inputContainerStyle={this.state.errorFields.email
+                ? { backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(252, 3, 3, 0.4)' }
+                : { backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(0, 0, 0, 0.1)' }
+              }
               keyboardType='email-address'
               maxLength={30}
               placeholder={this.state.userType[0] === true ? 'Entre com o e-mail da sua ONG' : 'Entre com seu e-mail'}
@@ -165,12 +276,34 @@ class RegisterScreen extends React.Component {
               onChangeText={(input) => { this.setState({ email: input }) }}
             />
 
-            <S.InputTitleText>Descrição</S.InputTitleText>
+            <S.InputTitleText onLayout={(event) => this.setState({ phonePos: event.nativeEvent.layout.y })}
+            >Contato</S.InputTitleText>
+            <S.RegisterTextInput
+              ref={(ref) => { this.phoneInput = ref; }}
+              containerStyle={{ width: Window.winWidth * 0.8, paddingHorizontal: 0 }}
+              inputStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
+              inputContainerStyle={this.state.errorFields.phone
+                ? { backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(252, 3, 3, 0.4)' }
+                : { backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(0, 0, 0, 0.1)' }
+              }
+              keyboardType='phone-pad'
+              maxLength={11}
+              placeholder={this.state.userType[0] === true ? 'Entre com o contato da sua ONG' : 'Entre com seu contato'}
+              placeholderTextColor={'#919191'}
+              value={this.state.phone}
+              onChangeText={(input) => { this.setState({ phone: input }) }}
+            />
+
+            <S.InputTitleText onLayout={(event) => this.setState({ descriptionPos: event.nativeEvent.layout.y })}
+            >Descrição</S.InputTitleText>
             <S.RegisterTextInput
               ref={(ref) => { this.descriptionInput = ref; }}
               containerStyle={{ width: Window.winWidth * 0.8, paddingHorizontal: 0, flex: 1 }}
               inputStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
-              inputContainerStyle={{ backgroundColor: 'white', paddingHorizontal: '2%', paddingTop: '0%', paddingBottom: '5%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(0, 0, 0, 0.1)' }}
+              inputContainerStyle={this.state.errorFields.description
+                ? { backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(252, 3, 3, 0.4)' }
+                : { backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(0, 0, 0, 0.1)' }
+              }
               keyboardType='default'
               maxLength={500}
               autoCorrect={true}
@@ -183,12 +316,16 @@ class RegisterScreen extends React.Component {
               onChangeText={(input) => { this.setState({ description: input }) }}
             />
 
-            <S.InputTitleText>Senha</S.InputTitleText>
+            <S.InputTitleText onLayout={(event) => this.setState({ passwordPos: event.nativeEvent.layout.y })}
+            >Senha</S.InputTitleText>
             <S.RegisterTextInput
               ref={(ref) => { this.passwordInput = ref; }}
               containerStyle={{ width: Window.winWidth * 0.8, paddingHorizontal: 0 }}
               inputStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
-              inputContainerStyle={{ backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(0, 0, 0, 0.1)' }}
+              inputContainerStyle={this.state.errorFields.password
+                ? { backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(252, 3, 3, 0.4)' }
+                : { backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(0, 0, 0, 0.1)' }
+              }
               keyboardType='default'
               secureTextEntry
               maxLength={30}
@@ -198,12 +335,16 @@ class RegisterScreen extends React.Component {
               onChangeText={(input) => { this.setState({ password: input }) }}
             />
 
-            <S.InputTitleText>Confirmar Senha</S.InputTitleText>
+            <S.InputTitleText onLayout={(event) => this.setState({ passwordConfirmPos: event.nativeEvent.layout.y })}
+            >Confirmar Senha</S.InputTitleText>
             <S.RegisterTextInput
               ref={(ref) => { this.passwordConfirmInput = ref; }}
               containerStyle={{ width: Window.winWidth * 0.8, paddingHorizontal: 0 }}
               inputStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
-              inputContainerStyle={{ backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(0, 0, 0, 0.1)' }}
+              inputContainerStyle={this.state.errorFields.password
+                ? { backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(252, 3, 3, 0.4)' }
+                : { backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(0, 0, 0, 0.1)' }
+              }
               keyboardType='default'
               secureTextEntry
               maxLength={30}
@@ -217,8 +358,10 @@ class RegisterScreen extends React.Component {
 
           <S.RegisterTouchableOpacity
             activeOpacity={0.5}
-            onPress={() => this.props.navigation.navigate('Preferences')}>
-            {/* // onPress={() => this.passwordConfirmInput.shake()}> */}
+            onPress={() => this.handleRegister()}
+          // this.props.navigation.navigate('Preferences')}>
+          // onPress={() => this.passwordConfirmInput.shake()}>
+          >
             <S.RegisterText>Próximo</S.RegisterText>
           </S.RegisterTouchableOpacity>
 

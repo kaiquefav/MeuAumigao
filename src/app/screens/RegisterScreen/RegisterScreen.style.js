@@ -13,8 +13,8 @@ const HeaderView = styled.View`
 
 const FullScrollView = styled.ScrollView`
   flex: 1;
-  background-color: rgb(250, 250, 250);
-  padding-horizontal: 10%;
+  background-color: #f1f1f1;
+  padding-horizontal: 7%;
 `;
 
 const CheckboxView = styled.View`

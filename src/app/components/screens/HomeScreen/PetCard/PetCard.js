@@ -22,19 +22,22 @@ class PetCard extends React.Component {
   }
 
   render() {
-    const { pet } = this.props;
+    const { pet, onPress } = this.props;
     return (
       this.state.fontLoaded ?
-      (<S.ContainerTouchableOpacity activeOpacity={0.9}>
-        <S.PetImage
-          source={{ uri: pet.picture }}
-          resizeMode= 'cover'
-        />
-        <S.PetNameTextView>
-          <S.PetNameText>{pet.name}</S.PetNameText>
-        </S.PetNameTextView>
-      </S.ContainerTouchableOpacity>)
-      : (<ActivityIndicator style={{ flex: 1 }} size='large' color='rgb(0, 104, 191)' />)
+        (<S.ContainerTouchableOpacity
+          onPress={onPress}
+          activeOpacity={0.9}
+        >
+          <S.PetImage
+            source={{ uri: pet.petPic }}
+            resizeMode='cover'
+          />
+          <S.PetNameTextView>
+            <S.PetNameText>{pet.name}</S.PetNameText>
+          </S.PetNameTextView>
+        </S.ContainerTouchableOpacity>)
+        : (<ActivityIndicator style={{ flex: 1 }} size='large' color='rgb(0, 104, 191)' />)
     );
   }
 }

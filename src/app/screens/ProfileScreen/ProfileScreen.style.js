@@ -8,8 +8,8 @@ const Header = styled(PageHeader)`
 
 const FullScrollView = styled.ScrollView`
   flex: 1;
-  background-color: rgb(250, 250, 250);
-  padding-horizontal: 10%;
+  background-color: #f1f1f1;
+  padding-horizontal: 7%;
 `;
 
 const ProfilePicView = styled.View`
@@ -18,6 +18,19 @@ const ProfilePicView = styled.View`
   width: ${Window.winHeight * 0.22}px;
   align-self: center;
   justify-content: center;
+`;
+
+const RatingView = styled.View`
+  align-items: center;
+  justify-content: center;
+  margin-bottom: ${Window.winHeight * 0.01}px;
+  background-color: white; 
+  padding-horizontal: 2%;
+  padding-vertical: ${Window.winHeight * 0.02}px;
+  border-radius: 8px;
+  border-right-width: 2px;
+  border-bottom-width: 2px; 
+  border-color: rgba(0, 0, 0, 0.1);
 `;
 
 const Divisor = styled.View`
@@ -91,6 +104,7 @@ export {
   Header,
   FullScrollView,
   ProfilePicView,
+  RatingView,
   Divisor,
   RegisterTextInputView,
   InputTitleView,

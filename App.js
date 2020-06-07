@@ -3,6 +3,8 @@ import { SafeAreaView, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './src/app/routes/appNavigator';
 
+// console.disableYellowBox = true;
+
 export default function App() {
   return (
     <SafeAreaView style={{ flex: 1 }}>

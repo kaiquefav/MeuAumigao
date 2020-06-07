@@ -3,9 +3,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons, MaterialIcons, FontAwesome } from '@expo/vector-icons';
 
 import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
-import LoginScreen from '../screens/LoginScreen/LoginScreen';
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
-import PreferencesScreen from '../screens/PreferencesScreen/PreferencesScreen';
+import ScheduleScreen from '../screens/ScheduleScreen/ScheduleScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -14,10 +13,10 @@ export default function AppTabNavigator() {
         <Tab.Navigator
             initialRouteName="Home"
             tabBarOptions={{
-                activeBackgroundColor: 'white',
-                inactiveBackgroundColor: 'white',
-                activeTintColor: 'rgb(0, 104, 191)',
-                inactiveTintColor: '#ababab',
+                activeBackgroundColor: 'rgba(0, 104, 191, 0.9)',
+                inactiveBackgroundColor: 'rgba(0, 104, 191, 1)',
+                activeTintColor: 'white',
+                inactiveTintColor: '#999',
                 showLabel: false,
             }}
         >
@@ -43,7 +42,7 @@ export default function AppTabNavigator() {
             />
             <Tab.Screen
                 name="Schedule"
-                component={PreferencesScreen}
+                component={ScheduleScreen}
                 options={{
                     tabBarLabel: 'Schedule',
                     tabBarIcon: ({ color, size }) => (
