@@ -1,9 +1,10 @@
 import React from 'react';
 import * as S from './LoginScreen.style';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, Keyboard } from 'react-native';
 import * as Font from 'expo-font';
 import * as Window from '../../utils/windowDimensions/WindowDimensions';
+import * as Validation from '../../utils/Validations/validations';
 
 class LoginScreen extends React.Component {
   constructor(props) {
@@ -11,6 +12,9 @@ class LoginScreen extends React.Component {
     this.state = {
       email: '',
       password: '',
+      errorFields: { email: false, password: false, blank: false },
+      error: '',
+      errorMessage: '',
       fontLoaded: false,
     };
   }
@@ -25,7 +29,54 @@ class LoginScreen extends React.Component {
     this.setState({ fontLoaded: true });
   }
 
+  errorHandler = (result) => {
+    let aux = { email: false, password: false, blank: false };
+    this.setState({ errorFields: aux });
+
+    switch (result.field) {
+      case 'all':
+        this.setState({ error: true });
+        aux = { email: false, password: false, blank: true };
+        this.setState({ errorFields: aux });
+        this.emailInput.shake();
+        this.passwordInput.shake();
+        break;
+      case 'email':
+        this.setState({ error: true });
+        aux = { email: true, password: false, blank: false };
+        this.setState({ errorFields: aux });
+        this.emailInput.shake();
+        break;
+      case 'password':
+        this.setState({ error: true });
+        if (this.state.password.length < 6) {
+          aux = { email: false, password: true, blank: false };
+          this.setState({ errorFields: aux });
+          this.passwordInput.shake();
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
+  handleLogin = () => {
+    const { email, password } = this.state;
+    this.setState({ error: false });
+    let result = Validation.LoginValidation(email, password);
+    console.log('result :', result);
+    if (result.validate !== true) {
+      this.setState({ errorMessage: result.validate }, () => this.errorHandler(result));
+    }
+    else {
+      let aux = { email: false, password: false, blank: false };
+      this.setState({ errorFields: aux });
+      this.props.navigation.navigate('BottomTab');
+    }
+  }
+
   render() {
+    console.log(this.state);
     return (
       this.state.fontLoaded ? (
         <S.FullScrollView>
@@ -45,7 +96,7 @@ class LoginScreen extends React.Component {
           <S.LoginView>
             <S.EmailTitleView>
               {
-                this.state.email.length >= 8 ? <MaterialCommunityIcons name="email-check-outline" size={24} color="rgb(81, 81, 81);" />
+                Validation.validateEmail(this.state.email) ? <MaterialCommunityIcons name="email-check-outline" size={24} color="rgb(81, 81, 81);" />
                   : <MaterialCommunityIcons name="email-outline" size={24} color="rgb(81, 81, 81);" />
               }
               <S.EmailTitleText>E-mail</S.EmailTitleText>
@@ -54,8 +105,11 @@ class LoginScreen extends React.Component {
               ref={(ref) => { this.emailInput = ref; }}
               containerStyle={{ width: Window.winWidth * 0.8, paddingHorizontal: 0 }}
               inputStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
-              inputContainerStyle={{ backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(0, 0, 0, 0.1)' }}
-              autoCapitalize='words'
+              inputContainerStyle={this.state.errorFields.email
+                ? { backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(252, 3, 3, 0.4)' }
+                : { backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(0, 0, 0, 0.1)' }
+              }
+              autoCapitalize='none'
               keyboardType='default'
               maxLength={30}
               placeholder='Entre com seu e-mail'
@@ -63,7 +117,10 @@ class LoginScreen extends React.Component {
               value={this.state.email}
               onChangeText={(input) => { this.setState({ email: input }) }}
             />
-
+            {this.state.errorFields.email
+              ? (<S.ErrorText>{this.state.errorMessage}</S.ErrorText>)
+              : null
+            }
             <S.PasswordTitleView>
               {
                 this.state.password.length >= 6 ? <MaterialCommunityIcons name="lock-outline" size={24} color="rgb(81, 81, 81);" />
@@ -76,19 +133,28 @@ class LoginScreen extends React.Component {
               containerStyle={{ width: Window.winWidth * 0.8, paddingHorizontal: 0 }}
               inputStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
               inputContainerStyle={{ backgroundColor: 'white', paddingHorizontal: '2%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(0, 0, 0, 0.1)' }}
-              autoCapitalize='words'
+              autoCapitalize='none'
               keyboardType='default'
               maxLength={30}
               placeholder='Entre com sua senha'
               placeholderTextColor={'#919191'}
+              secureTextEntry={true}
               value={this.state.password}
               onChangeText={(input) => { this.setState({ password: input }) }}
             />
+            {this.state.errorFields.password
+              ? (<S.ErrorText>{this.state.errorMessage}</S.ErrorText>)
+              : null
+            }
+            {this.state.errorFields.blank
+              ? (<S.ErrorText>{this.state.errorMessage}</S.ErrorText>)
+              : null
+            }
           </S.LoginView>
 
           <S.LoginTouchableOpacity
             activeOpacity={0.5}
-            onPress={() => this.props.navigation.navigate('BottomTab')}
+            onPress={() => this.handleLogin()}
           >
             <S.LoginTouchableOpacityText>Entrar</S.LoginTouchableOpacityText>
           </S.LoginTouchableOpacity>

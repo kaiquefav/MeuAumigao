@@ -11,7 +11,7 @@ const PetsCarousel = styled(Carousel)`
 
 const FullView = styled.View`
   flex: 1;
-  margin-bottom: 20%;
+  margin-bottom: ${Window.winHeight * 0.07}px;
 `;
 
 const PetsCarouselView = styled.View`

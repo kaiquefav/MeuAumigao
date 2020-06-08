@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './PreferencesScreen.style';
 import * as Window from '../../utils/windowDimensions/WindowDimensions';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, Alert } from 'react-native';
 import * as Font from 'expo-font';
 
 class PreferencesScreen extends React.Component {
@@ -49,7 +49,7 @@ class PreferencesScreen extends React.Component {
             <S.InputTitleText>Raça</S.InputTitleText>
             <S.RegisterTextInput
               iosHeader='Raça?'
-              headerStyle={{ backgroundColor: ' rgb(255, 246, 222)' }}
+              headerStyle={{ backgroundColor: '#f1f1f1' }}
               textStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
               itemTextStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
               iosIcon={
@@ -58,8 +58,8 @@ class PreferencesScreen extends React.Component {
                   resizeMode='contain'
                 />}
               headerBackButtonText="Voltar"
-              headerBackButtonTextStyle={{ color: "rgb(81, 81, 81)", fontFamily: 'Bellota-Bold' }}
-              headerTitleStyle={{ color: "rgb(81, 81, 81)", fontFamily: 'Bellota-Bold' }}
+              headerBackButtonTextStyle={{ color: "rgb(0, 104, 191)", fontFamily: 'Bellota-Bold' }}
+              headerTitleStyle={{ color: "rgb(0, 104, 191)", fontFamily: 'Bellota-Bold' }}
               mode="dropdown"
               placeholder="Preferência de raça?"
               placeholderStyle={{ color: "#919191" }}
@@ -91,7 +91,7 @@ class PreferencesScreen extends React.Component {
             <S.InputTitleText>Tamanho</S.InputTitleText>
             <S.RegisterTextInput
               iosHeader='Tamanho?'
-              headerStyle={{ backgroundColor: ' rgb(255, 246, 222)' }}
+              headerStyle={{ backgroundColor: '#f1f1f1' }}
               textStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
               itemTextStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
               iosIcon={
@@ -100,8 +100,8 @@ class PreferencesScreen extends React.Component {
                   resizeMode='contain'
                 />}
               headerBackButtonText="Voltar"
-              headerBackButtonTextStyle={{ color: "rgb(81, 81, 81)", fontFamily: 'Bellota-Bold' }}
-              headerTitleStyle={{ color: "rgb(81, 81, 81)", fontFamily: 'Bellota-Bold' }}
+              headerBackButtonTextStyle={{ color: "rgb(0, 104, 191)", fontFamily: 'Bellota-Bold' }}
+              headerTitleStyle={{ color: "rgb(0, 104, 191)", fontFamily: 'Bellota-Bold' }}
               mode="dropdown"
               placeholder="Preferência de tamanho?"
               placeholderStyle={{ color: "#919191" }}
@@ -130,6 +130,7 @@ class PreferencesScreen extends React.Component {
             <S.InputTitleText>Idade</S.InputTitleText>
             <S.RegisterTextInput
               iosHeader='Idade?'
+              headerStyle={{ backgroundColor: '#f1f1f1' }}
               textStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
               itemTextStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
               iosIcon={
@@ -138,8 +139,8 @@ class PreferencesScreen extends React.Component {
                   resizeMode='contain'
                 />}
               headerBackButtonText="Voltar"
-              headerBackButtonTextStyle={{ color: "rgb(81, 81, 81)", fontFamily: 'Bellota-Bold' }}
-              headerTitleStyle={{ color: "rgb(81, 81, 81)", fontFamily: 'Bellota-Bold' }}
+              headerBackButtonTextStyle={{ color: "rgb(0, 104, 191)", fontFamily: 'Bellota-Bold' }}
+              headerTitleStyle={{ color: "rgb(0, 104, 191)", fontFamily: 'Bellota-Bold' }}
               mode="dropdown"
               placeholder="Preferência de idade?"
               placeholderStyle={{ color: "#919191" }}
@@ -168,6 +169,7 @@ class PreferencesScreen extends React.Component {
             <S.InputTitleText>Comportamento</S.InputTitleText>
             <S.RegisterTextInput
               iosHeader='Comportamento?'
+              headerStyle={{ backgroundColor: '#f1f1f1' }}
               textStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
               itemTextStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
               iosIcon={
@@ -176,8 +178,8 @@ class PreferencesScreen extends React.Component {
                   resizeMode='contain'
                 />}
               headerBackButtonText="Voltar"
-              headerBackButtonTextStyle={{ color: "rgb(81, 81, 81)", fontFamily: 'Bellota-Bold' }}
-              headerTitleStyle={{ color: "rgb(81, 81, 81)", fontFamily: 'Bellota-Bold' }}
+              headerBackButtonTextStyle={{ color: "rgb(0, 104, 191)", fontFamily: 'Bellota-Bold' }}
+              headerTitleStyle={{ color: "rgb(0, 104, 191)", fontFamily: 'Bellota-Bold' }}
               mode="dropdown"
               placeholder="Preferência de comportamento?"
               placeholderStyle={{ color: "#919191" }}
@@ -205,7 +207,10 @@ class PreferencesScreen extends React.Component {
 
           </S.RegisterTextInputView>
 
-          <S.RegisterTouchableOpacity>
+          <S.RegisterTouchableOpacity onPress={() => {
+            Alert.alert('Cadastro', 'Cadastro com sucesso!');
+            this.props.navigation.navigate('BottomTab');
+          }}>
             <S.RegisterText>Registrar</S.RegisterText>
           </S.RegisterTouchableOpacity>
 

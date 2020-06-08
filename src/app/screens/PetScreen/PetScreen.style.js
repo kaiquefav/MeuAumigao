@@ -55,8 +55,10 @@ const RegisterText = styled.Text`
   color: #FFF;
   font-size: ${Platform.OS === 'ios' ? '20px' : '15px'};
   padding-vertical: ${Platform.OS === 'ios' ? `${Window.winHeight * 0.029}px` : '3%'};
-  padding-horizontal: ${Platform.OS === 'ios' ? '30%' : '25%'};
+  padding-horizontal: ${Platform.OS === 'ios' ? `${Window.winWidth * 0.08}px` : '25%'};
+  max-width: ${Window.winWidth * 0.7}px;
   align-self: center;
+  text-align: center;
 `;
 
 const RegisterTouchableOpacity = styled.TouchableOpacity`
@@ -65,7 +67,7 @@ const RegisterTouchableOpacity = styled.TouchableOpacity`
   border-width: 0.5px;
   border-radius: 5px;
   margin-top: ${Window.winHeight * 0.1}px;
-  margin-bottom: 20%;
+  margin-bottom: ${Window.winHeight * 0.1}px;
 `;
 
 const PetImage = styled.Image`

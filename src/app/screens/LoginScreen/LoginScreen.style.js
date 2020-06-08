@@ -83,6 +83,15 @@ const RegisterText = styled.Text`
   align-self: center;
 `;
 
+const ErrorText = styled.Text`
+  font-family: Bellota-Regular;
+  color: red;
+  align-self: center;
+  font-size: ${Platform.OS === 'ios' ? '17px' : '14px'};
+  margin-bottom: 6%;
+  margin-top: -4%;
+`;
+
 const LoginTouchableOpacity = styled.TouchableOpacity`
   background-color: rgb(0, 104, 191);
   align-self: center;
@@ -118,6 +127,7 @@ export {
   LoginTitleText,
   LoginTouchableOpacityText,
   RegisterText,
+  ErrorText,
   LoginTouchableOpacity,
   RegisterTouchableOpacity,
   LoginTextInput,

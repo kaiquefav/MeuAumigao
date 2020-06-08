@@ -86,7 +86,7 @@ const validateEmail = (email) => {
 
 const validatePhone = (phone) => {
     if (phone.length < 11) return false;
-    if(!/^[0-9]+$/.test(phone)) return false;
+    if (!/^[0-9]+$/.test(phone)) return false;
     else return true;
 }
 
@@ -120,4 +120,17 @@ const RegisterValidation = (name, doc, email, phone, description, password, cPas
     else return { validate: true, field: null };
 }
 
-export { RegisterValidation };
+const LoginValidation = (email, password) => {
+    if ((email === '') || (password === '')) return { validate: 'Preencha todos os campos!', field: 'all' };
+    else if (!(validateEmail(email))) return { validate: 'Email Inválido!', field: 'email' };
+    else if (password.length < 6) return { validate: 'Insira uma senha com pelo menos 6 dígitos!', field: 'password' };
+    else return { validate: true, field: null };
+}
+
+const AddPetValidation = (name, description, race, size, age, behavior) => {
+    console.log('description :', description);
+    if ((name === '') || (description === '') || (race === '') || (size === '') || (age === '') || (behavior === '')) return { validate: 'Preencha todos os campos!', field: 'all' };
+    else return { validate: true, field: null };
+}
+
+export { RegisterValidation, LoginValidation, validateEmail, AddPetValidation };

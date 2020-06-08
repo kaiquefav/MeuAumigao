@@ -59,7 +59,7 @@ class PetsButton extends React.Component {
   renderItem = ({ item, index }) => {
     this.props.scrollTo();
     return (
-      <S.PetsCard pet={item} onPress={() => this.props.routes.navigation.navigate('Pet', { pet: item })} />
+      <S.PetsCard pet={item} onPress={() => this.props.routes.navigation.navigate('Pet', { pet: item, userType: this.props.userType })} />
     );
   }
 
@@ -269,7 +269,9 @@ class PetsButton extends React.Component {
                     />
                   </S.PetsCarouselView>
 
-                  <S.SeeMoreTouchableOpacity>
+                  <S.SeeMoreTouchableOpacity
+                    onPress={() => this.props.routes.navigation.navigate('OtherPets', { animalType: 0 })}
+                  >
                     <S.SeeMoreTouchableOpacityText>ver mais</S.SeeMoreTouchableOpacityText>
                   </S.SeeMoreTouchableOpacity>
                 </>)
@@ -290,7 +292,8 @@ class PetsButton extends React.Component {
             )
           }
 
-          {this.state.animalType === 1 &&
+          {
+            this.state.animalType === 1 &&
             (
               this.state.cats.length > 0
                 ?
@@ -305,7 +308,9 @@ class PetsButton extends React.Component {
                     />
                   </S.PetsCarouselView>
 
-                  <S.SeeMoreTouchableOpacity>
+                  <S.SeeMoreTouchableOpacity
+                    onPress={() => this.props.routes.navigation.navigate('OtherPets', { animalType: 1 })}
+                  >
                     <S.SeeMoreTouchableOpacityText>ver mais</S.SeeMoreTouchableOpacityText>
                   </S.SeeMoreTouchableOpacity>
                 </>)
@@ -326,7 +331,8 @@ class PetsButton extends React.Component {
             )
           }
 
-          {this.state.animalType === 2 &&
+          {
+            this.state.animalType === 2 &&
             (
               this.state.others.length > 0
                 ?
@@ -341,7 +347,9 @@ class PetsButton extends React.Component {
                     />
                   </S.PetsCarouselView>
 
-                  <S.SeeMoreTouchableOpacity>
+                  <S.SeeMoreTouchableOpacity
+                    onPress={() => this.props.routes.navigation.navigate('OtherPets', { animalType: 2 })}
+                  >
                     <S.SeeMoreTouchableOpacityText>ver mais</S.SeeMoreTouchableOpacityText>
                   </S.SeeMoreTouchableOpacity>
                 </>)
@@ -362,7 +370,7 @@ class PetsButton extends React.Component {
             )
           }
 
-        </S.FullView>)
+        </S.FullView >)
         : (<ActivityIndicator style={{ flex: 1 }} size='large' color='rgb(0, 104, 191)' />)
     );
   }

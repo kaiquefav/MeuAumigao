@@ -63,9 +63,10 @@ const PetNameTextView = styled.View`
 `;
 
 const PetTextView = styled.View`
-  flex-direction: row;
+  flex-direction: column;
   flex: 1;
-  max-width: 60%;
+  margin-top: 5%;
+  max-width: 80%;
 `;
 
 const PetNameText = styled.Text`
@@ -80,7 +81,7 @@ const PetNameSubText = styled.Text`
   font-family: Bellota-Regular;
   color: rgb(41, 41, 41);
   font-size: ${Platform.OS === 'ios' ? '17px' : '12px'};
-  align-self: center;
+  align-self: flex-start;
 `;
 
 const ContainerTouchableOpacity = styled.TouchableOpacity`
@@ -98,14 +99,9 @@ const ContainerTouchableOpacity = styled.TouchableOpacity`
 const PetImage = styled.Image`
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
-  height: 100%;
-  width: 25%;
-`;
-
-const UserImage = styled.Image`
   margin-right: 4%;
   height: 100%;
-  width: 25%;
+  width: 35%;
 `;
 
 export {
@@ -113,15 +109,14 @@ export {
   PetsCards,
   HeaderView,
   FullScrollView,
-  PetsCardsView,
+  PetNameTextView,
   LoginTitleText,
   RegisterTouchableOpacity,
   RegisterTextInput,
-  PetNameTextView,
+  PetsCardsView,
   PetTextView,
   PetNameText,
   PetNameSubText,
   ContainerTouchableOpacity,
   PetImage,
-  UserImage,
 };

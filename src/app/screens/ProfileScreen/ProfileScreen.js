@@ -6,24 +6,26 @@ import * as Font from 'expo-font';
 import { AirbnbRating } from 'react-native-elements';
 import { Icon } from 'native-base';
 
+import * as Users from '../../mocky/mockData';
+
 class ProfileScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userType: 1,
-      name: 'AUjudando os Animais',
-      CPF: '111.111.111-11',
-      email: 'aujudando@email.com',
-      description: 'Uma ONG que proporciona uma ajuda à estes animaizinhos que estão nessa situação de abandono nas ruas. Toda ajuda é bem vinda. Para contato, ligue: (11) 1111-1111.',
-      password: '123123',
-      passwordConfirm: '123123',
-      //profilePic: 'https://www.clubedohardware.com.br/uploads/monthly_2019_09/imported-photo-758396.thumb.jpeg.8b8a40db89e907847becefa903b037b6.jpeg',
-      rating: 5,
+      userType: '',
+      name: '',
+      doc: '',
+      email: '',
+      description: '',
+      password: '',
+      profilePic: '',
+      rating: '',
       fontLoaded: false,
     };
   }
 
   async componentDidMount() {
+    this.setUserData();
     await Font.loadAsync({
       'Bellota-Light': require('../../assets/fonts/Bellota-Light.ttf'),
       'Bellota-Regular': require('../../assets/fonts/Bellota-Regular.ttf'),
@@ -31,6 +33,19 @@ class ProfileScreen extends React.Component {
     })
 
     this.setState({ fontLoaded: true });
+
+
+  }
+
+  setUserData = () => {
+    this.setState({ userType: Users.user.userType });
+    this.setState({ name: Users.user.name });
+    this.setState({ doc: Users.user.doc });
+    this.setState({ email: Users.user.email });
+    this.setState({ description: Users.user.description });
+    this.setState({ password: Users.user.password });
+    this.setState({ profilePic: Users.user.profilePic });
+    this.setState({ rating: Users.user.rating });
   }
 
   render() {
@@ -58,7 +73,7 @@ class ProfileScreen extends React.Component {
 
           <S.RegisterTextInputView>
 
-            {this.state.userType === 1
+            {this.state.userType === 0
               ? (<S.InputTitleText>Nome da ONG</S.InputTitleText>)
               : (<S.InputTitleText>Nome</S.InputTitleText>)
             }
@@ -75,7 +90,7 @@ class ProfileScreen extends React.Component {
               value={this.state.name}
               onChangeText={(input) => { this.setState({ name: input }) }}
             />
-            {this.state.userType === 1
+            {this.state.userType === 0
               ? (<S.InputTitleText>CPNJ</S.InputTitleText>)
               : (<S.InputTitleText>CPF</S.InputTitleText>)
             }
@@ -89,8 +104,8 @@ class ProfileScreen extends React.Component {
               maxLength={14}
               placeholder={this.state.userType === 1 ? 'Entre com seu CNPJ' : 'Entre com seu CPF'}
               placeholderTextColor={'#919191'}
-              value={this.state.CPF}
-              onChangeText={(input) => { this.setState({ CPF: input }) }}
+              value={this.state.doc}
+              onChangeText={(input) => { this.setState({ doc: input }) }}
             />
 
             <S.InputTitleText>E-mail</S.InputTitleText>
@@ -141,33 +156,38 @@ class ProfileScreen extends React.Component {
               onChangeText={(input) => { this.setState({ password: input }) }}
             />
 
-            <S.InputTitleText>Sua pontuação</S.InputTitleText>
+            {this.state.userType === 1 && (
+              <>
+                <S.InputTitleText>Sua pontuação</S.InputTitleText>
 
-            <S.RatingView>
-              <AirbnbRating
-                count={10}
-                defaultRating={this.state.rating}
-                size={16}
-                starStyle={{ backgroundColor: 'transparent', marginRight: '1%' }}
-                showRating={false}
-                isDisabled={true}
-              />
-            </S.RatingView>
+                <S.RatingView>
+                  <AirbnbRating
+                    count={10}
+                    defaultRating={this.state.rating}
+                    size={16}
+                    starStyle={{ backgroundColor: 'transparent', marginRight: '1%' }}
+                    showRating={false}
+                    isDisabled={true}
+                  />
+                </S.RatingView>
+              </>)}
 
           </S.RegisterTextInputView>
 
-          <S.RegisterTouchableOpacity
-            activeOpacity={0.5}
-            onPress={() => this.props.navigation.navigate('PreferencesProfile')}
-          >
-            <S.RegisterText>Atualizar Preferências</S.RegisterText>
-          </S.RegisterTouchableOpacity>
+          {this.state.userType === 1 && (
+            <S.RegisterTouchableOpacity
+              activeOpacity={0.5}
+              onPress={() => this.props.navigation.navigate('PreferencesProfile')}
+            >
+              <S.RegisterText>Atualizar Preferências</S.RegisterText>
+            </S.RegisterTouchableOpacity>
+          )}
 
-          <S.RegisterTouchableOpacity style={{ marginBottom: '10%' }}>
+          < S.RegisterTouchableOpacity style={{ marginBottom: '10%' }}>
             <S.RegisterText>Atualizar Perfil</S.RegisterText>
           </S.RegisterTouchableOpacity>
 
-        </S.FullScrollView>)
+        </S.FullScrollView >)
         : (<ActivityIndicator style={{ flex: 1 }} size='large' color='rgb(0, 104, 191)' />)
     );
   }

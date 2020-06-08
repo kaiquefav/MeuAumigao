@@ -36,30 +36,35 @@ class PetCard extends React.Component {
 
             <S.PetNameText>{commitment.name}</S.PetNameText>
             <S.PetTextView>
-              <S.PetNameSubText style={{fontFamily: 'Bellota-Bold'}}>Data: </S.PetNameSubText>
+              <S.PetNameSubText style={{ fontFamily: 'Bellota-Bold' }}>Data: </S.PetNameSubText>
               <S.PetNameSubText>{commitment.date}</S.PetNameSubText>
             </S.PetTextView>
             <S.PetTextView>
-              <S.PetNameSubText style={{fontFamily: 'Bellota-Bold'}}>Hora: </S.PetNameSubText>
+              <S.PetNameSubText style={{ fontFamily: 'Bellota-Bold' }}>Hora: </S.PetNameSubText>
               <S.PetNameSubText>Às {commitment.time}</S.PetNameSubText>
             </S.PetTextView>
             <S.PetTextView>
-              <S.PetNameSubText style={{fontFamily: 'Bellota-Bold'}}>Local: </S.PetNameSubText>
+              <S.PetNameSubText style={{ fontFamily: 'Bellota-Bold' }}>Local: </S.PetNameSubText>
               <S.PetNameSubText>{commitment.localTitle}</S.PetNameSubText>
             </S.PetTextView>
             <S.PetTextView>
-              <S.PetNameSubText style={{fontFamily: 'Bellota-Bold'}}>Rua: </S.PetNameSubText>
+              <S.PetNameSubText style={{ fontFamily: 'Bellota-Bold' }}>Rua: </S.PetNameSubText>
               <S.PetNameSubText>{commitment.localStreet}</S.PetNameSubText>
             </S.PetTextView>
             <S.PetTextView>
-              <S.PetNameSubText style={{fontFamily: 'Bellota-Bold'}}>Bairro: </S.PetNameSubText>
+              <S.PetNameSubText style={{ fontFamily: 'Bellota-Bold' }}>Bairro: </S.PetNameSubText>
               <S.PetNameSubText>{commitment.localDistrict}</S.PetNameSubText>
             </S.PetTextView>
             <S.PetTextView>
-              <S.PetNameSubText style={{fontFamily: 'Bellota-Bold'}}>Nº: </S.PetNameSubText>
+              <S.PetNameSubText style={{ fontFamily: 'Bellota-Bold' }}>Nº: </S.PetNameSubText>
               <S.PetNameSubText>{commitment.localNum}</S.PetNameSubText>
             </S.PetTextView>
-
+            <S.PetTextView>
+              <S.PetNameSubText style={{ fontFamily: 'Bellota-Bold' }}>Status: </S.PetNameSubText>
+              {(commitment.status === 'Recusado') && (<S.PetNameSubText style={{ color: 'red' }}>{commitment.status}</S.PetNameSubText>)}
+              {(commitment.status === 'Pendente') && (<S.PetNameSubText style={{ color: 'blue' }}>{commitment.status}</S.PetNameSubText>)}
+              {(commitment.status === 'Aprovado') && (<S.PetNameSubText style={{ color: 'green' }}>{commitment.status}</S.PetNameSubText>)}
+            </S.PetTextView>
           </S.PetNameTextView>
 
         </S.ContainerTouchableOpacity>)

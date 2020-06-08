@@ -2,24 +2,8 @@ import styled from 'styled-components/native';
 import * as Window from '../../utils/windowDimensions/WindowDimensions';
 import { Picker } from 'native-base';
 import PageHeader from '../../components/screens/PageHeader/PageHeader';
-import PetCard from '../../components/screens/ScheduleScreen/PetCard/PetCard';
-
-
-const RegisterTextInput = styled(Picker)`
-  width: ${Window.winWidth * 0.8}px;
-  background-color: white; 
-  padding-horizontal: 2%; 
-  border-radius: 8px;
-  border-right-width: 2px; 
-  border-bottom-width: 2px; 
-  border-color: rgba(0, 0, 0, 0.1);
-  margin-bottom: ${Window.winHeight * 0.05}px;
-`;
 
 const Header = styled(PageHeader)`
-`;
-
-const PetsCards = styled(PetCard)`
 `;
 
 const HeaderView = styled.View`
@@ -27,14 +11,17 @@ const HeaderView = styled.View`
   background-color: transparent;
 `;
 
-const FullScrollView = styled.ScrollView`
+const CardsFullView = styled.View`
   flex: 1;
-  background-color: #f1f1f1;
-  padding-horizontal: 7%;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin-bottom: 10%;
 `;
 
-const PetsCardsView = styled.ScrollView`
-  margin-bottom: 10%;
+const FullScrollView = styled.ScrollView`
+  flex: 1;
+  background-color: rgb(250, 250, 250);
+  padding-horizontal: 7%;
 `;
 
 const LoginTitleText = styled.Text`
@@ -43,8 +30,17 @@ const LoginTitleText = styled.Text`
   font-size: ${Platform.OS === 'ios' ? '23px' : '19px'};
   align-self: center;
   text-align: center;
-  margin-top: 10%;
+  margin-top: 15%;
   margin-bottom: 10%;
+`;
+
+const RegisterText = styled.Text`
+  font-family: Bellota-Bold;
+  color: #FFF;
+  font-size: ${Platform.OS === 'ios' ? '20px' : '15px'};
+  padding-vertical: ${Platform.OS === 'ios' ? `${Window.winHeight * 0.029}px` : '3%'};
+  padding-horizontal: ${Platform.OS === 'ios' ? '30%' : '25%'};
+  align-self: center;
 `;
 
 const RegisterTouchableOpacity = styled.TouchableOpacity`
@@ -56,72 +52,48 @@ const RegisterTouchableOpacity = styled.TouchableOpacity`
 `;
 
 
-const PetNameTextView = styled.View`
-  flex: 1;
-  justify-content: flex-start;
-  padding-vertical: 3%;
-`;
-
-const PetTextView = styled.View`
-  flex-direction: row;
-  flex: 1;
-  max-width: 60%;
+const PetsCardsView = styled.View`
+  margin-right: 5%;
 `;
 
 const PetNameText = styled.Text`
   font-family: Bellota-Bold;
   color: rgb(41, 41, 41);
   font-size: ${Platform.OS === 'ios' ? '22px' : '17px'};
-  align-self: flex-start;
-  margin-bottom: ${Platform.OS === 'ios' ? '3%' : '0%'};
-`;
-
-const PetNameSubText = styled.Text`
-  font-family: Bellota-Regular;
-  color: rgb(41, 41, 41);
-  font-size: ${Platform.OS === 'ios' ? '17px' : '12px'};
   align-self: center;
+  margin-bottom: ${Platform.OS === 'ios' ? Window.winHeight * 0.01 : '2%'};
+  margin-top: ${Platform.OS === 'ios' ? Window.winHeight * 0.01 : '2%'};
 `;
 
 const ContainerTouchableOpacity = styled.TouchableOpacity`
+  margin-top: ${Platform.OS === 'ios' ? Window.winHeight * 0.01 : '2%'};
   background-color: white;
-  width: 100%;
+  width: ${Window.winHeight * 0.2}px;
   border-radius: 12px;
   border-right-width: 4px;
   border-bottom-width: 4px;
   border-color: rgba(0, 0, 0, 0.08);
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  padding-right: 3%;
 `;
 
 const PetImage = styled.Image`
   border-top-left-radius: 12px;
-  border-bottom-left-radius: 12px;
-  height: 100%;
-  width: 25%;
-`;
-
-const UserImage = styled.Image`
-  margin-right: 4%;
-  height: 100%;
-  width: 25%;
+  border-top-right-radius: 12px;
+  height: ${Window.winHeight * 0.2}px;
+  width: 100%;
 `;
 
 export {
   Header,
-  PetsCards,
   HeaderView,
+  CardsFullView,
   FullScrollView,
-  PetsCardsView,
   LoginTitleText,
+  RegisterText,
   RegisterTouchableOpacity,
-  RegisterTextInput,
-  PetNameTextView,
-  PetTextView,
+  PetsCardsView,
   PetNameText,
-  PetNameSubText,
   ContainerTouchableOpacity,
   PetImage,
-  UserImage,
 };

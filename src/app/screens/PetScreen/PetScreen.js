@@ -28,6 +28,7 @@ class PetScreen extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       this.state.fontLoaded ?
         (<S.FullScrollView>
@@ -70,33 +71,41 @@ class PetScreen extends React.Component {
             <S.LoginSubTitleText>Raça:</S.LoginSubTitleText>
             <S.LoginSubText>
               {this.props.route.params.pet.race}
-          </S.LoginSubText>
+            </S.LoginSubText>
           </S.TextView>
 
           <S.TextView>
             <S.LoginSubTitleText>Tamanho:</S.LoginSubTitleText>
             <S.LoginSubText>
               {this.props.route.params.pet.size}
-          </S.LoginSubText>
+            </S.LoginSubText>
           </S.TextView>
 
           <S.TextView>
             <S.LoginSubTitleText>Idade:</S.LoginSubTitleText>
             <S.LoginSubText>
               {this.props.route.params.pet.age}
-          </S.LoginSubText>
+            </S.LoginSubText>
           </S.TextView>
 
           <S.TextView>
             <S.LoginSubTitleText>Comportamento:</S.LoginSubTitleText>
             <S.LoginSubText>
               {this.props.route.params.pet.behavior}
-          </S.LoginSubText>
+            </S.LoginSubText>
           </S.TextView>
 
-          <S.RegisterTouchableOpacity>
-            <S.RegisterText>Agendar Visita</S.RegisterText>
-          </S.RegisterTouchableOpacity>
+          {this.props.route.params.userType === 0
+            ? (<S.RegisterTouchableOpacity
+              onPress={() => this.props.navigation.navigate('PetsSchedule', { pet: this.props.route.params.pet })}
+            >
+              <S.RegisterText>{`Visualizar Solicitações de Visita para ${this.props.route.params.pet.name}`}</S.RegisterText>
+            </S.RegisterTouchableOpacity>)
+            : (<S.RegisterTouchableOpacity>
+              <S.RegisterText>Agendar Visita</S.RegisterText>
+            </S.RegisterTouchableOpacity>)
+          }
+
 
         </S.FullScrollView>)
         : (<ActivityIndicator style={{ flex: 1 }} size='large' color='rgb(0, 104, 191)' />)
