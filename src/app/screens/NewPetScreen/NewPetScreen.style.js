@@ -8,7 +8,7 @@ const RegisterTextInput = styled(Input)`
 `;
 
 const RegisterPicker = styled(Picker)`
-  width: ${Window.winWidth * 0.8}px;
+  width: ${Window.winWidth * 0.86}px;
   background-color: white; 
   padding-horizontal: 2%; 
   border-radius: 8px;
@@ -29,7 +29,7 @@ const HeaderView = styled.View`
 
 const FullScrollView = styled.ScrollView`
   flex: 1;
-  background-color: #f1f1f1;
+  background-color: transparent;
   padding-horizontal: 7%;
 `;
 
@@ -38,6 +38,19 @@ const CheckboxView = styled.View`
   align-items: center;
   justify-content: center;
   margin-bottom: ${Window.winHeight * 0.07}px;
+`;
+
+const ModalView = styled.View`
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  background-color: white; 
+  padding-horizontal: ${Platform.OS === 'ios' ? '4%' : '2%'};
+  padding-vertical: ${Window.winHeight * 0.04}px;
+  border-radius: 8px;
+  border-width: 2px;
+  border-color: rgba(0, 0, 0, 0.1);
+  width: 90%;
 `;
 
 const LoginTitleText = styled.Text`
@@ -54,8 +67,17 @@ const RegisterText = styled.Text`
   font-family: Bellota-Bold;
   color: #FFF;
   font-size: ${Platform.OS === 'ios' ? '20px' : '15px'};
-  padding-vertical: ${Platform.OS === 'ios' ? `${Window.winHeight * 0.029}px` : '3%'};
-  padding-horizontal: ${Platform.OS === 'ios' ? '30%' : '25%'};
+  padding-vertical: ${Platform.OS === 'ios' ? `${Window.winHeight * 0.015}px` : '3%'};
+  padding-horizontal: ${Platform.OS === 'ios' ? '25%' : '20%'};
+  align-self: center;
+`;
+
+const PictureButtonText = styled.Text`
+  font-family: Bellota-Bold;
+  color: #FFF;
+  font-size: ${Platform.OS === 'ios' ? '18px' : '14px'};
+  padding-vertical: ${Platform.OS === 'ios' ? `${Window.winHeight * 0.015}px` : '3%'};
+  padding-horizontal: ${Platform.OS === 'ios' ? '22%' : '17%'};
   align-self: center;
 `;
 
@@ -70,6 +92,14 @@ const InputTitleText = styled.Text`
   color: rgb(81, 81, 81);
   font-size: ${Platform.OS === 'ios' ? '17px' : '14px'};
   margin-bottom: 2%;
+`;
+
+const PictureModalText = styled.Text`
+  font-family: Bellota-Bold;
+  color: rgb(81, 81, 81);
+  font-size: ${Platform.OS === 'ios' ? '20px' : '16px'};
+  margin-bottom: 2%;
+  text-align: center;
 `;
 
 const ErrorText = styled.Text`
@@ -89,10 +119,30 @@ const RegisterTouchableOpacity = styled.TouchableOpacity`
   margin-bottom: 20%;
 `;
 
+const ProfilePicView = styled.TouchableOpacity.attrs({
+  activeOpacity: 0.5,
+})`
+  align-self: center;
+  justify-content: center;
+  margin-bottom: ${Window.winHeight * 0.05}px;
+`;
+
 const BackArrowImage = styled.Image`
   height: ${Window.winHeight * 0.04}px;
   width: ${Window.winWidth * 0.04}px;
   margin-right: 5%;
+`;
+
+const ProfilePicImage = styled.Image`
+  height: ${Window.winHeight * 0.15}px;
+  width: ${Window.winHeight * 0.15}px;
+  border-radius: ${Window.winHeight * 0.44 / 2}px;
+`;
+
+export const BackgroundImage = styled.ImageBackground`
+  height: ${Window.winHeight * 1}px;
+  width: ${Window.winWidth * 1}px;
+  position: absolute;
 `;
 
 export {
@@ -100,13 +150,18 @@ export {
   RegisterPicker,
   Header,
   HeaderView,
+  ModalView,
   FullScrollView,
   CheckboxView,
+  ProfilePicView,
   CheckboxText,
   LoginTitleText,
   RegisterText,
+  PictureButtonText,
   InputTitleText,
+  PictureModalText,
   ErrorText,
   RegisterTouchableOpacity,
   BackArrowImage,
+  ProfilePicImage,
 };

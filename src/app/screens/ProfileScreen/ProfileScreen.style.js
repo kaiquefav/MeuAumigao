@@ -8,16 +8,31 @@ const Header = styled(PageHeader)`
 
 const FullScrollView = styled.ScrollView`
   flex: 1;
-  background-color: #f1f1f1;
+  background-color: transparent;
   padding-horizontal: 7%;
 `;
 
-const ProfilePicView = styled.View`
+const ProfilePicView = styled.TouchableOpacity.attrs({
+  activeOpacity: 0.5,
+})`
   margin-top: ${Window.winHeight * 0.04}px;
   height: ${Window.winHeight * 0.22}px;
   width: ${Window.winHeight * 0.22}px;
   align-self: center;
   justify-content: center;
+`;
+
+const ModalView = styled.View`
+align-self: center;
+  align-items: center;
+  justify-content: center;
+  background-color: white; 
+  padding-horizontal: 2%;
+  padding-vertical: ${Window.winHeight * 0.04}px;
+  border-radius: 8px;
+  border-width: 2px;
+  border-color: rgba(0, 0, 0, 0.1);
+  width: 90%;
 `;
 
 const RatingView = styled.View`
@@ -35,7 +50,7 @@ const RatingView = styled.View`
 
 const Divisor = styled.View`
   background-color: #ccc;
-  height: ${Window.winHeight * 0.008}px;
+  height: ${Window.winHeight * 0.005}px;
   width: ${Window.winWidth * 0.09}px;
   margin-top: 10%;
   border-radius: 15px;
@@ -46,7 +61,7 @@ const RegisterTextInputView = styled.View`
   flex: 1;
   margin-top: 10%;
   margin-bottom: 10%;
-  align-self:flex-start;
+  align-self: center;
 `;
 
 const InputTitleView = styled.View`
@@ -59,7 +74,7 @@ const InputTitleText = styled.Text`
   font-family: Bellota-Regular;
   color: rgb(81, 81, 81);
   font-size: ${Platform.OS === 'ios' ? '17px' : '14px'};
-  margin-bottom: 2%;
+  margin-bottom: 5%;
 `;
 
 const LoginTitleText = styled.Text`
@@ -78,6 +93,15 @@ const RegisterText = styled.Text`
   align-self: center;
   padding-vertical: ${Platform.OS === 'ios' ? '5%' : '4%'};
   padding-horizontal: ${Platform.OS === 'ios' ? '18%' : '17%'};
+`;
+
+const ErrorText = styled.Text`
+  font-family: Bellota-Regular;
+  color: red;
+  align-self: center;
+  font-size: ${Platform.OS === 'ios' ? '17px' : '14px'};
+  margin-bottom: 6%;
+  margin-top: -4%;
 `;
 
 const RegisterTouchableOpacity = styled.TouchableOpacity`
@@ -99,6 +123,11 @@ const ProfilePicImage = styled.Image`
 const RegisterTextInput = styled(Input)`
 `;
 
+export const BackgroundImage = styled.ImageBackground`
+  height: ${Window.winHeight * 1}px;
+  width: ${Window.winWidth * 1}px;
+  position: absolute;
+`;
 
 export {
   Header,
@@ -108,9 +137,11 @@ export {
   Divisor,
   RegisterTextInputView,
   InputTitleView,
+  ModalView,
   InputTitleText,
   LoginTitleText,
   RegisterText,
+  ErrorText,
   RegisterTouchableOpacity,
   ProfilePicImage,
   RegisterTextInput,

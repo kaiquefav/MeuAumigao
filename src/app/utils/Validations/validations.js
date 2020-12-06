@@ -80,7 +80,7 @@ const validateCNPJ = (s) => {
 
 const validateEmail = (email) => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    console.log(re.test(String(email).toLowerCase()));
+    // console.log(re.test(String(email).toLowerCase()));
     return re.test(String(email).toLowerCase());
 }
 
@@ -102,7 +102,6 @@ const validatePasswordLength = (password, cPassword) => {
 }
 
 const validateUserType = (userType) => {
-    console.log('userType :', userType);
     if ((userType[0] === false) && (userType[1] === false)) return false;
     else return true;
 }
@@ -127,9 +126,8 @@ const LoginValidation = (email, password) => {
     else return { validate: true, field: null };
 }
 
-const AddPetValidation = (name, description, race, size, age, behavior) => {
-    console.log('description :', description);
-    if ((name === '') || (description === '') || (race === '') || (size === '') || (age === '') || (behavior === '')) return { validate: 'Preencha todos os campos!', field: 'all' };
+const AddPetValidation = (name, description, city, street, district, number, picture) => {
+    if ((name === '') || (description === '') || (city === '') || (street === '') || (district === '') || (number === '') || (picture === '')) return { validate: 'Preencha todos os campos!', field: 'all' };
     else return { validate: true, field: null };
 }
 

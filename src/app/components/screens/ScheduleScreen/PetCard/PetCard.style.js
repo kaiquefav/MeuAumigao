@@ -10,14 +10,15 @@ const PetNameTextView = styled.View`
 const PetTextView = styled.View`
   flex-direction: row;
   flex: 1;
-  max-width: 60%;
+  max-width: 95%;
+  /* background-color: lime; */
 `;
 
 const PetNameText = styled.Text`
   font-family: Bellota-Bold;
   color: rgb(41, 41, 41);
   font-size: ${Platform.OS === 'ios' ? '22px' : '17px'};
-  align-self: center;
+  align-self: flex-start;
   margin-bottom: ${Platform.OS === 'ios' ? '3%' : '0%'};
 `;
 
@@ -25,7 +26,7 @@ const PetNameSubText = styled.Text`
   font-family: Bellota-Regular;
   color: rgb(41, 41, 41);
   font-size: ${Platform.OS === 'ios' ? '17px' : '12px'};
-  align-self: center;
+  align-self: flex-start;
 `;
 
 const ContainerTouchableOpacity = styled.TouchableOpacity`
@@ -40,6 +41,16 @@ const ContainerTouchableOpacity = styled.TouchableOpacity`
   padding-right: 3%;
 `;
 
+const ContactTouchableOpacity = styled.TouchableOpacity`
+  position: absolute;
+  align-self: center;
+  align-items: flex-end;
+  top: ${Window.winWidth * 0.03}px;
+  right: ${Window.winWidth * 0.03}px;
+  height: ${Window.winWidth * 0.08}px;
+  width: ${Window.winWidth * 0.08}px;
+`;
+
 const PetImage = styled.Image`
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
@@ -52,6 +63,7 @@ export {
   PetNameTextView,
   PetTextView,
   ContainerTouchableOpacity,
+  ContactTouchableOpacity,
   PetNameText,
   PetNameSubText,
   PetImage,

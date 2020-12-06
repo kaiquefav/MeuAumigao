@@ -25,7 +25,7 @@ const HeaderView = styled.View`
 
 const FullScrollView = styled.ScrollView`
   flex: 1;
-  background-color: #f1f1f1;
+  background-color: transparent;
   padding-horizontal: 7%;
 `;
 
@@ -56,6 +56,15 @@ const InputTitleText = styled.Text`
   color: rgb(81, 81, 81);
   font-size: ${Platform.OS === 'ios' ? '17px' : '14px'};
   margin-bottom: 2%;
+`;
+
+const ErrorText = styled.Text`
+  font-family: Bellota-Regular;
+  color: red;
+  align-self: center;
+  font-size: ${Platform.OS === 'ios' ? '17px' : '14px'};
+  margin-bottom: 6%;
+  margin-top: -4%;
 `;
 
 const RegisterText = styled.Text`
@@ -89,6 +98,12 @@ const BackArrowImage = styled.Image`
   margin-right: 5%;
 `;
 
+export const BackgroundImage = styled.ImageBackground`
+  height: ${Window.winHeight * 1}px;
+  width: ${Window.winWidth * 1}px;
+  position: absolute;
+`;
+
 export {
   Header,
   HeaderView,
@@ -98,6 +113,7 @@ export {
   LoginTitleText,
   InputTitleText,
   RegisterText,
+  ErrorText,
   LogoImage,
   RegisterTouchableOpacity,
   RegisterTextInput,

@@ -10,6 +10,8 @@ class PageHeader extends React.Component {
       color,
       icon,
       backButton,
+      logoHeight,
+      logoWidth,
     } = this.props;
     return (
       <S.ContainerView color={color}>
@@ -30,6 +32,8 @@ class PageHeader extends React.Component {
         {icon && (<S.LogoImage
           source={require('../../../assets/png/ic_transparent_logo_MeuAumigao.png')}
           resizeMode='cover'
+          logoHeight={logoHeight}
+          logoWidth={logoWidth}
         />)}
       </S.ContainerView>
     );

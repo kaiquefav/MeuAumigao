@@ -20,7 +20,7 @@ const PetButton = styled(PetsButton)`
 
 const FullView = styled.ScrollView`
   flex: 1;
-  background-color: #f1f1f1;
+  background-color: transparent;
 `;
 
 const LinearView = styled(LinearGradient)`
@@ -47,18 +47,34 @@ const LoginTitleText = styled.Text`
 
 const AddPetText = styled.Text`
   font-family: Bellota-Bold;
-  color: #FFF;
-  font-size: ${Platform.OS === 'ios' ? '17px' : '13px'};
-  padding-vertical: ${Platform.OS === 'ios' ? `${Window.winWidth * 0.04}px` : '3%'};
-  padding-horizontal: ${Platform.OS === 'ios' ? `${Window.winWidth * 0.07}px` : '25%'};
+  color: #000;
+  font-size: ${Platform.OS === 'ios' ? '40px' : '30px'};
+  align-self: center;
 `;
 
 const AddPetTouchableOpacity = styled.TouchableOpacity`
-  background-color: rgb(0, 104, 191);
-  align-self: center;
-  border-width: 0.5px;
-  border-radius: 5px;
-  margin-bottom: ${Window.winHeight * 0.1}px;
+  position: absolute;
+  top: ${Platform.OS === 'ios' ? `${Window.winHeight * 0.025}px` : '5%'};
+  right: ${Platform.OS === 'ios' ? `${Window.winWidth * 0.03}px` : '5%'};
+  height: ${Window.winHeight * 0.05}px;
+  width: ${Window.winHeight * 0.05}px;
+  z-index: 500;
+`;
+
+const LogoutTouchableOpacity = styled.TouchableOpacity`
+  position: absolute;
+  /* flex-direction: row; */
+  top: ${Platform.OS === 'ios' ? `${Window.winHeight * 0.04}px` : '5%'};
+  left: ${Platform.OS === 'ios' ? `${Window.winWidth * 0.04}px` : '5%'};
+  height: ${Window.winHeight * 0.05}px;
+  width: ${Window.winHeight * 0.05}px;
+  z-index: 500;
+`;
+
+const BackgroundImage = styled.ImageBackground`
+  height: ${Window.winHeight * 1}px;
+  width: ${Window.winWidth * 1}px;
+  position: absolute;
 `;
 
 export {
@@ -73,4 +89,6 @@ export {
   LoginTitleText,
   AddPetText,
   AddPetTouchableOpacity,
+  LogoutTouchableOpacity,
+  BackgroundImage,
 };

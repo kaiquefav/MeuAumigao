@@ -47,7 +47,7 @@ const NoPetText = styled.Text`
 const SeeMoreTouchableOpacityText = styled.Text`
   font-family: Bellota-Bold;
   color: rgb(81, 81, 81);
-  font-size: ${Platform.OS === 'ios' ? '19px' : '14px'};
+  font-size: ${Platform.OS === 'ios' ? '20px' : '15px'};
   text-decoration-line: underline;
   align-self: center;
   text-align: center;

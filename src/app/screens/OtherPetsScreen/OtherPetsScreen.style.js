@@ -16,12 +16,13 @@ const CardsFullView = styled.View`
   flex-wrap: wrap;
   flex-direction: row;
   margin-bottom: 10%;
+  justify-content: center;
 `;
 
 const FullScrollView = styled.ScrollView`
   flex: 1;
-  background-color: rgb(250, 250, 250);
-  padding-horizontal: 7%;
+  background-color: transparent;
+  padding-horizontal: 4%;
 `;
 
 const LoginTitleText = styled.Text`
@@ -53,7 +54,8 @@ const RegisterTouchableOpacity = styled.TouchableOpacity`
 
 
 const PetsCardsView = styled.View`
-  margin-right: 5%;
+  margin-horizontal: 4%;
+  margin-top: 8%;
 `;
 
 const PetNameText = styled.Text`
@@ -61,18 +63,18 @@ const PetNameText = styled.Text`
   color: rgb(41, 41, 41);
   font-size: ${Platform.OS === 'ios' ? '22px' : '17px'};
   align-self: center;
-  margin-bottom: ${Platform.OS === 'ios' ? Window.winHeight * 0.01 : '2%'};
-  margin-top: ${Platform.OS === 'ios' ? Window.winHeight * 0.01 : '2%'};
+  margin-bottom: ${Platform.OS === 'ios' ? `${Window.winHeight * 0.01}px` : '2%'};
+  margin-top: ${Platform.OS === 'ios' ? `${Window.winHeight * 0.01}px` : '2%'};
 `;
 
 const ContainerTouchableOpacity = styled.TouchableOpacity`
   margin-top: ${Platform.OS === 'ios' ? Window.winHeight * 0.01 : '2%'};
   background-color: white;
-  width: ${Window.winHeight * 0.2}px;
+  width: ${Window.winHeight * 0.19}px;
   border-radius: 12px;
   border-right-width: 4px;
   border-bottom-width: 4px;
-  border-color: rgba(0, 0, 0, 0.08);
+  border-color: ${(props) => (props.isRecommended ? 'rgb(254, 197, 57)' : 'rgba(0, 0, 0, 0.08)')};
   flex-direction: column;
   align-items: center;
 `;
@@ -82,6 +84,23 @@ const PetImage = styled.Image`
   border-top-right-radius: 12px;
   height: ${Window.winHeight * 0.2}px;
   width: 100%;
+`;
+
+const RecommendedFlagImage = styled.Image`
+  position: absolute;
+  z-index: 500;
+  height: ${Window.winHeight * 0.06}px;
+  width: ${Window.winHeight * 0.06}px;
+  top: 0px;
+  right: 0px;
+  border-top-right-radius: 9px;
+  border-bottom-left-radius: 9px;
+`;
+
+export const BackgroundImage = styled.ImageBackground`
+  height: ${Window.winHeight * 1}px;
+  width: ${Window.winWidth * 1}px;
+  position: absolute;
 `;
 
 export {
@@ -96,4 +115,5 @@ export {
   PetNameText,
   ContainerTouchableOpacity,
   PetImage,
+  RecommendedFlagImage,
 };

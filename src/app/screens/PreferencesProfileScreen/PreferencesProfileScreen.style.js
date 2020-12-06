@@ -5,14 +5,14 @@ import PageHeader from '../../components/screens/PageHeader/PageHeader';
 
 
 const RegisterTextInput = styled(Picker)`
-  background-color: white;
-  height: ${Window.winHeight * 0.05}px;
   width: ${Window.winWidth * 0.8}px;
-  border-width: 0.5px;
-  border-color: #000;
-  margin-bottom: ${Window.winHeight * 0.04}px;
-  align-self: center;
-  align-items: center;
+  background-color: white; 
+  padding-horizontal: 2%; 
+  border-radius: 8px;
+  border-right-width: 2px; 
+  border-bottom-width: 2px; 
+  border-color: rgba(0, 0, 0, 0.1);
+  margin-bottom: ${Window.winHeight * 0.05}px;
 `;
 
 const Header = styled(PageHeader)`
@@ -25,7 +25,7 @@ const HeaderView = styled.View`
 
 const FullScrollView = styled.ScrollView`
   flex: 1;
-  background-color: #f1f1f1;
+  background-color: transparent;
   padding-horizontal: 7%;
 `;
 
@@ -87,6 +87,12 @@ const BackArrowImage = styled.Image`
   height: ${Window.winHeight * 0.04}px;
   width: ${Window.winWidth * 0.04}px;
   margin-right: 5%;
+`;
+
+export const BackgroundImage = styled.ImageBackground`
+  height: ${Window.winHeight * 1}px;
+  width: ${Window.winWidth * 1}px;
+  position: absolute;
 `;
 
 export {

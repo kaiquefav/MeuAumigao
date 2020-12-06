@@ -6,6 +6,8 @@ import * as Window from '../../../utils/windowDimensions/WindowDimensions';
 import { Icon } from 'native-base';
 import { useScrollToTop } from '@react-navigation/native';
 
+const NUM_TO_RENDER = 12;
+
 class PetsButton extends React.Component {
   constructor(props) {
     super(props);
@@ -14,52 +16,78 @@ class PetsButton extends React.Component {
       dogs: [],
       cats: [],
       others: [],
+      allDogs: [],
+      allCats: [],
+      allOthers: [],
       active: false,
       fontLoaded: false,
     };
   }
 
   async componentDidMount() {
+    const { allPets, recomendedPets } = this.props;
     await Font.loadAsync({
       'Bellota-Light': require('../../../assets/fonts/Bellota-Light.ttf'),
       'Bellota-Regular': require('../../../assets/fonts/Bellota-Regular.ttf'),
       'Bellota-Bold': require('../../../assets/fonts/Bellota-Bold.ttf'),
     })
 
+    this.getAnimalsByType(allPets, recomendedPets);
     this.setState({ fontLoaded: true });
-    await this.getAnimalsByType();
   }
 
-  getAnimalsByType = async () => {
-    const { pets } = this.props;
-    let aux;
-    pets.map((element) => {
-      switch (element.type) {
-        case 0:
-          aux = this.state.dogs;
-          aux.push(element);
-          this.setState({ dogs: aux }, () => aux = []);
-          break;
-        case 1:
-          aux = this.state.cats;
-          aux.push(element);
-          this.setState({ cats: aux }, () => aux = []);
-          break;
-        case 2:
-          aux = this.state.others;
-          aux.push(element);
-          this.setState({ others: aux }, () => aux = []);
-          break;
-        default:
-          break;
-      }
-    })
+  getAnimalsByType = async (allPets, recomendedPets) => {
+    if (this.props.userType === 1) {
+      let auxDogs = [];
+      let auxCats = [];
+      let auxOthers = [];
+      recomendedPets.forEach((type, index) => {
+        if (index === 0) type.forEach((animal) => { auxDogs.push(Object.values(animal)); })
+        if (index === 1) type.forEach((animal) => { auxCats.push(Object.values(animal)); })
+        if (index === 2) type.forEach((animal) => { auxOthers.push(Object.values(animal)); })
+      });
+      this.setState({ dogs: auxDogs.slice(0, NUM_TO_RENDER) });
+      this.setState({ cats: auxCats });
+      this.setState({ others: auxOthers });
+      this.setState({ allDogs: Object.values(allPets[0]) })
+      this.setState({ allCats: Object.values(allPets[1]) })
+      this.setState({ allOthers: Object.values(allPets[2]) })
+    }
+    else {
+      let aux = [];
+      let auxDogs = [];
+      let auxCats = [];
+      let auxOthers = [];
+      allPets[0].forEach((pet, index) => {
+        aux = [pet.id, pet.data]
+        auxDogs.push(aux);
+      })
+      allPets[1].forEach((pet, index) => {
+        aux = [pet.id, pet.data]
+        auxCats.push(aux);
+      })
+      allPets[2].forEach((pet, index) => {
+        aux = [pet.id, pet.data]
+        auxOthers.push(aux);
+      })
+      if (allPets[0]) this.setState({ dogs: auxDogs.slice(0, NUM_TO_RENDER) });
+      if (allPets[1]) this.setState({ cats: auxCats.slice(0, NUM_TO_RENDER) });
+      if (allPets[2]) this.setState({ others: auxOthers.slice(0, NUM_TO_RENDER) });
+      this.setState({ allDogs: allPets[0] })
+      this.setState({ allCats: allPets[1] })
+      this.setState({ allOthers: allPets[2] })
+    }
+
   }
 
   renderItem = ({ item, index }) => {
     this.props.scrollTo();
     return (
-      <S.PetsCard pet={item} onPress={() => this.props.routes.navigation.navigate('Pet', { pet: item, userType: this.props.userType })} />
+      <S.PetsCard
+        pet={item}
+        onPress={() => this.props.routes.navigation.navigate('Pet', { userData: this.props.userData, pet: { id: item[0], data: item[1] }, userType: this.props.userType, userID: this.props.userID, animalType: this.state.animalType })}
+        isRecommended={item[2]}
+      />
     );
   }
 
@@ -72,6 +100,7 @@ class PetsButton extends React.Component {
             (<S.PetTypeTouchableOpacity active={this.state.active} onPress={() => {
               if (this.state.animalType !== 0) this.setState({ animalType: 0 }, () => this.setState({ active: !this.state.active }));
               else this.setState({ animalType: '' }, () => this.setState({ active: !this.state.active }));
+              this.forceUpdate();
             }}>
               <S.PetTypeTouchableOpacityTextView>
 
@@ -87,7 +116,7 @@ class PetsButton extends React.Component {
                         marginRight: '4.8%',
                       }}
                     />
-                    <S.PetTypeText style={{ color: 'white' }}>Cachorros</S.PetTypeText>
+                    <S.PetTypeText style={{ color: 'white' }}>Cães</S.PetTypeText>
                     <Icon
                       type="Ionicons"
                       name="ios-arrow-down"
@@ -111,7 +140,7 @@ class PetsButton extends React.Component {
                         marginRight: '4.8%',
                       }}
                     />
-                    <S.PetTypeText>Cachorros</S.PetTypeText>
+                    <S.PetTypeText>Cães</S.PetTypeText>
                     <Icon
                       type="Ionicons"
                       name="ios-arrow-back"
@@ -134,6 +163,7 @@ class PetsButton extends React.Component {
               this.props.scrollTo();
               if (this.state.animalType !== 1) this.setState({ animalType: 1 }, () => this.setState({ active: !this.state.active }));
               else this.setState({ animalType: '' }, () => this.setState({ active: !this.state.active }));
+              this.forceUpdate();
             }} >
               <S.PetTypeTouchableOpacityTextView>
 
@@ -196,6 +226,7 @@ class PetsButton extends React.Component {
             (<S.PetTypeTouchableOpacity active={this.state.active} onPress={() => {
               if (this.state.animalType !== 2) this.setState({ animalType: 2 }, () => this.setState({ active: !this.state.active }));
               else this.setState({ animalType: '' }, () => this.setState({ active: !this.state.active }));
+              this.forceUpdate();
             }} >
               <S.PetTypeTouchableOpacityTextView>
                 {this.state.animalType === 2
@@ -266,13 +297,14 @@ class PetsButton extends React.Component {
                       renderItem={this.renderItem}
                       sliderWidth={Window.winWidth * 1}
                       itemWidth={Window.winWidth * 0.82}
+
                     />
                   </S.PetsCarouselView>
 
                   <S.SeeMoreTouchableOpacity
-                    onPress={() => this.props.routes.navigation.navigate('OtherPets', { animalType: 0 })}
+                    onPress={() => this.props.routes.navigation.navigate('OtherPets', { animalType: 0, userType: this.props.userType, pets: this.state.allDogs, recommendedPets: this.state.dogs, userData: this.props.userData, userID: this.props.userID, userID: this.props.userID })}
                   >
-                    <S.SeeMoreTouchableOpacityText>ver mais</S.SeeMoreTouchableOpacityText>
+                    <S.SeeMoreTouchableOpacityText>ver todos</S.SeeMoreTouchableOpacityText>
                   </S.SeeMoreTouchableOpacity>
                 </>)
                 : (<S.NoPetView>
@@ -309,9 +341,9 @@ class PetsButton extends React.Component {
                   </S.PetsCarouselView>
 
                   <S.SeeMoreTouchableOpacity
-                    onPress={() => this.props.routes.navigation.navigate('OtherPets', { animalType: 1 })}
+                    onPress={() => this.props.routes.navigation.navigate('OtherPets', { animalType: 1, userType: this.props.userType, pets: this.state.allCats, userData: this.props.userData })}
                   >
-                    <S.SeeMoreTouchableOpacityText>ver mais</S.SeeMoreTouchableOpacityText>
+                    <S.SeeMoreTouchableOpacityText>ver todos</S.SeeMoreTouchableOpacityText>
                   </S.SeeMoreTouchableOpacity>
                 </>)
                 : (<S.NoPetView>
@@ -340,7 +372,7 @@ class PetsButton extends React.Component {
                   <S.PetsCarouselView>
                     <S.PetsCarousel
                       ref={(c) => { this._carousel = c; }}
-                      data={this.state.birds}
+                      data={this.state.others}
                       renderItem={this.renderItem}
                       sliderWidth={Window.winWidth * 1}
                       itemWidth={Window.winWidth * 0.82}
@@ -348,9 +380,9 @@ class PetsButton extends React.Component {
                   </S.PetsCarouselView>
 
                   <S.SeeMoreTouchableOpacity
-                    onPress={() => this.props.routes.navigation.navigate('OtherPets', { animalType: 2 })}
+                    onPress={() => this.props.routes.navigation.navigate('OtherPets', { animalType: 2, userType: this.props.userType, pets: this.state.allOthers, userData: this.props.userData, userID: this.props.userID })}
                   >
-                    <S.SeeMoreTouchableOpacityText>ver mais</S.SeeMoreTouchableOpacityText>
+                    <S.SeeMoreTouchableOpacityText>ver todos</S.SeeMoreTouchableOpacityText>
                   </S.SeeMoreTouchableOpacity>
                 </>)
                 : (<S.NoPetView>

@@ -3,6 +3,7 @@ import * as Window from '../../../utils/windowDimensions/WindowDimensions';
 
 const ContainerView = styled.View`
   background-color: ${(props) => (props.color ? props.color : 'transparent')};
+  margin-top: ${Window.winHeight * 0.02}px;
   justify-content: center;
 `;
 
@@ -13,8 +14,8 @@ const BackArrowTouchableOpacity = styled.TouchableOpacity`
 `;
 
 const LogoImage = styled.Image`
-  height: ${Window.winHeight * 0.15}px;
-  width: ${Window.winWidth * 0.5}px;
+  height: ${(props) => (props.logoHeight ? `${props.logoHeight}px` : `${Window.winHeight * 0.15}px`)};
+  width: ${(props) => (props.logoWidth ? `${props.logoWidth}px` : `${Window.winWidth * 0.5}px`)};
   align-self: center;
 `;
 

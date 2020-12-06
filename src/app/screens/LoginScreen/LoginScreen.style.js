@@ -8,7 +8,7 @@ const Header = styled(PageHeader)`
 
 const FullScrollView = styled.ScrollView`
   flex: 1;
-  background-color: #f1f1f1;
+  background-color: transparent;
   padding-horizontal: 7%;
 `;
 
@@ -18,7 +18,6 @@ const FullView = styled.View`
 
 const LoginView = styled.View`
   margin-top: 10%;
-  align-self:flex-start;
 `;
 
 const EmailTitleView = styled.View`
@@ -70,15 +69,13 @@ const LoginTouchableOpacityText = styled.Text`
   font-family: Bellota-Bold;
   color: #FFF;
   font-size: ${Platform.OS === 'ios' ? '20px' : '15px'};
-  padding-vertical: ${Platform.OS === 'ios' ? '5%' : '3%'};
-  padding-horizontal: ${Platform.OS === 'ios' ? '30%' : '25%'};
 `;
 
 const RegisterText = styled.Text`
   font-family: Bellota-Regular;
   margin-top: 8%;
   color: rgb(81, 81, 81);
-  font-size: ${Platform.OS === 'ios' ? '17px' : '13px'};
+  font-size: ${Platform.OS === 'ios' ? '18px' : '14px'};
   text-align: center;
   align-self: center;
 `;
@@ -87,17 +84,21 @@ const ErrorText = styled.Text`
   font-family: Bellota-Regular;
   color: red;
   align-self: center;
+  text-align: center;
   font-size: ${Platform.OS === 'ios' ? '17px' : '14px'};
-  margin-bottom: 6%;
   margin-top: -4%;
+  margin-bottom: 5%;
 `;
 
 const LoginTouchableOpacity = styled.TouchableOpacity`
   background-color: rgb(0, 104, 191);
   align-self: center;
+  align-items: center;
+  justify-content: center;
   border-width: 0.5px;
   border-radius: 5px;
-  margin-top: 15%;
+  height: ${Window.winHeight * 0.07}px;
+  width: ${Window.winWidth * 0.6}px;
 `;
 
 const RegisterTouchableOpacity = styled.TouchableOpacity`
@@ -112,6 +113,12 @@ const LogoImage = styled.Image`
 `;
 
 const LoginTextInput = styled(Input)`
+`;
+
+export const BackgroundImage = styled.ImageBackground`
+  height: ${Window.winHeight * 1}px;
+  width: ${Window.winWidth * 1}px;
+  position: absolute;
 `;
 
 export {
