@@ -271,7 +271,7 @@ class RegisterScreen extends React.Component {
         {this.state.fontLoaded ?
           (<KeyboardAvoidingView
             style={{ flex: 1 }} behavior="padding"
-            keyboardVerticalOffset={20}
+            keyboardVerticalOffset={0}
             enabled={Platform.OS === 'ios' ? true : false}
           >
             <S.FullScrollView ref={(ref) => { this.scrollView = ref; }}>

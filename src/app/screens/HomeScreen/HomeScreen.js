@@ -180,11 +180,12 @@ class HomeScreen extends React.Component {
         });
       let alreadyExists = false;
       allDogsAux.forEach((element) => {
+        console.log('element :', element);
         alreadyExists = false;
         dogsAux.forEach((item) => {
           if (element.id === item.id) alreadyExists = true;
         })
-        if (!alreadyExists) dogsAux.push(element);
+        if (!alreadyExists && element.data.race === 'SRD (Sem raça definida)') dogsAux.push(element);
       });
       await firebase.database().ref(`animals/cats`).once('value',
         (snapshot) => {

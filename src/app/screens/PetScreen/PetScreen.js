@@ -306,12 +306,10 @@ class PetScreen extends React.Component {
 
             {this.modalComponent()}
 
-            <View style={{ borderBottomWidth: 1, borderColor: 'black' }}>
-              <S.PetImage
-                source={{ uri: `data:image/jpg;base64,${this.props.route.params.pet.data.petPic}` }}
-                resizeMode='cover'
-              />
-            </View>
+            <S.PetImage
+              source={{ uri: `data:image/jpg;base64,${this.props.route.params.pet.data.petPic}` }}
+              resizeMode='contain'
+            />
 
 
             <S.AllTextView>

@@ -9,6 +9,9 @@
     "reset-cache": "react-native start --reset-cache",
     "test": "jest",
     "expo": "expo start",
+    "expo-build-android": "expo build:android",
+    "expo-build-ios": "expo build:ios",
+    "expo-build-status": "expo build:status",
     "expo-upgrade": "expo upgrade",
     "expo-install": "expo install"
   },

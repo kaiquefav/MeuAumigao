@@ -3,8 +3,25 @@
   "displayName": "MeuAumigao",
   "expo": {
     "name": "MeuAumigao",
+    "icon": "./src/app/assets/png/appIcon.png",
     "slug": "MeuAumigao",
     "version": "1.0.0",
+    "ios": {
+      "bundleIdentifier": "com.kaiquefavero.meuaumigao",
+      "buildNumber": "1.0.0",
+      "config": {
+        "googleMapsApiKey": "AIzaSyCyMDg_w1PXZ6bKBDJloi8baqHD4JBNOyg"
+      }
+    },
+    "android": {
+      "package": "com.kaiquefavero.meuaumigao",
+      "versionCode": 1,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyCrgx3zAOSU7LwMtwwi_28Gng5Zywiau4k"
+        }
+      }
+    },
     "platforms": [
       "ios",
       "android",

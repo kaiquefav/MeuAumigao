@@ -146,7 +146,7 @@ class ProfileScreen extends React.Component {
         {(this.state.fontLoaded && this.state.userData) ?
           (<KeyboardAvoidingView
             style={{ flex: 1 }}
-            behavior="padding" keyboardVerticalOffset={20}
+            behavior="padding" keyboardVerticalOffset={0}
             enabled={Platform.OS === 'ios' ? true : false}>
             <S.FullScrollView>
 

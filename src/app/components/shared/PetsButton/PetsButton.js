@@ -297,6 +297,8 @@ class PetsButton extends React.Component {
                       renderItem={this.renderItem}
                       sliderWidth={Window.winWidth * 1}
                       itemWidth={Window.winWidth * 0.82}
+                      layout="default"
+                      enableSnap={false}
 
                     />
                   </S.PetsCarouselView>

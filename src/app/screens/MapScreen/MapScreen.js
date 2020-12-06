@@ -92,7 +92,7 @@ class MapScreen extends React.Component {
     let today = moment().format(); //today
     today = moment(today).subtract(14, 'd').format();
     const result = moment(pin[1][2]).isSameOrAfter(today);
-    if(!result) firebase.database().ref('animalsPins/' + `${pin[0]}`).remove();
+    if (!result) firebase.database().ref('animalsPins/' + `${pin[0]}`).remove();
   }
 
   modalComponent = () => (
@@ -282,6 +282,7 @@ class MapScreen extends React.Component {
               }}
               showsUserLocation
               showsMyLocationButton
+              provider={PROVIDER_GOOGLE}
             >
               {pins && pins.map((element) => (
                 <Marker
