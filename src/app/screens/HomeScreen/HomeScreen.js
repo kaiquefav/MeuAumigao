@@ -40,23 +40,33 @@ class HomeScreen extends React.Component {
   verifySimResults = (results) => {
     const aux1 = [];
     const aux2 = [];
+    const euclideanResults = [];
+    const manhattanResults = [];
     const result = [];
-    results.forEach((item, index) => {
-      if (index === 0) {
-        item.forEach((element, i) => {
-          if (i < 5) {
-            aux1.push(element);
-          }
-        })
+
+    results[0].forEach((element, i) => {
+      if (element[0]) {
+        euclideanResults.push(element);
       }
-      if (index === 1) {
-        item.forEach((element, i) => {
-          if (i < 5) {
-            aux2.push(element);
-          }
-        })
+    });
+
+    results[1].forEach((element, i) => {
+      if (element[0]) {
+        manhattanResults.push(element);
+      }
+    });
+
+    euclideanResults.forEach((element, i) => {
+      if (i < 5) {
+        if (element[0]) aux1.push(element);
       }
     })
+    manhattanResults.forEach((element, i) => {
+      if (i < 5) {
+        if (element[0]) aux2.push(element);
+      }
+    })
+
     aux1.forEach((item) => {
       aux2.forEach((element) => {
         if (element[1] === item[1]) result.push(item);

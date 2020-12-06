@@ -18,11 +18,13 @@ const manhattanSimilarity = (user1, user2) => {
   let sum = 0;
   let result;
   Object.values(user1).forEach((item, index) => {
-    if (index === 3) sum = sum + ((Math.abs(item - Object.values(user2)[index], 2)) * 5);
-    if (index === 0) sum = sum + ((Math.abs(item - Object.values(user2)[index], 2)) * 2);
-    else sum = sum + (Math.abs(item - Object.values(user2)[index], 2));
+    if (item !== '0') {
+      if (index === 3) sum = sum + ((Math.abs(item - Object.values(user2)[index], 2)) * 5);
+      if (index === 0) sum = sum + ((Math.abs(item - Object.values(user2)[index], 2)) * 2);
+      else sum = sum + (Math.abs(item - Object.values(user2)[index], 2));
+    }
   });
-  result = (1 / sum);
+  if (sum > 0) result = (1 / sum);
   return result;
 };
 

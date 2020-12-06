@@ -204,7 +204,7 @@ class ProfileScreen extends React.Component {
                 }
                 {this.state.userData.userType === 0
                   ? (<>
-                    <S.InputTitleText onLayout={(event) => this.setState({ docPos: event.nativeEvent.layout.y })}>CPNJ (Sem pontuação)</S.InputTitleText>
+                    <S.InputTitleText onLayout={(event) => this.setState({ docPos: event.nativeEvent.layout.y })}>CPNJ</S.InputTitleText>
                     <TextInputMask
                       editable={false}
                       style={{ marginBottom: '7%', color: 'rgb(130, 130, 130)', backgroundColor: 'white', width: Window.winWidth * 0.8, fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16, paddingHorizontal: '2%', paddingVertical: '3%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(0, 0, 0, 0.1)' }}
@@ -218,7 +218,7 @@ class ProfileScreen extends React.Component {
                     />
                   </>)
                   : (<>
-                    <S.InputTitleText onLayout={(event) => this.setState({ docPos: event.nativeEvent.layout.y })}>CPF (Sem pontuação)</S.InputTitleText>
+                    <S.InputTitleText onLayout={(event) => this.setState({ docPos: event.nativeEvent.layout.y })}>CPF</S.InputTitleText>
                     <TextInputMask
                       editable={false}
                       style={{ marginBottom: '7%', color: 'rgb(130, 130, 130)', backgroundColor: 'white', width: Window.winWidth * 0.8, fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16, paddingHorizontal: '2%', paddingVertical: '3%', borderRadius: 8, borderRightWidth: 2, borderBottomWidth: 2, borderColor: 'rgba(0, 0, 0, 0.1)' }}

@@ -23,7 +23,7 @@ class PreferencesScreen extends React.Component {
     };
   }
 
-  addUser(name, doc, email, phone, description, picture, size, behavior, care, nature, sex, uid) {
+  addUser(name, doc, email, phone, description, picture, size, behavior, care, sex, uid) {
     let type = 1;
     Firebase.database().ref('users/' + uid).set({
       name: name,
@@ -33,7 +33,7 @@ class PreferencesScreen extends React.Component {
       description: description,
       picture: picture,
       userType: type,
-      preferences: { size: size, behavior: behavior, care: care, nature: nature, sex: sex },
+      preferences: { size: size, behavior: behavior, care: care, sex: sex },
       rating: 0,
     });
     Alert.alert('Cadastro', 'Cadastro com sucesso!');
@@ -63,7 +63,6 @@ class PreferencesScreen extends React.Component {
               this.state.size,
               this.state.behavior,
               this.state.care,
-              this.state.nature,
               this.state.sex,
               infoUser.user.uid,
             )
@@ -71,7 +70,8 @@ class PreferencesScreen extends React.Component {
         )
         .catch((error) => {
           console.log('error :', error);
-          this.setState({ error: true }, () => this.setState({ errorMessage: error.message }));
+          if (error.message === 'The email address is already in use by another account.') this.setState({ error: true }, this.setState({ errorMessage: 'Este email já foi utilizado por outra conta!' }));
+          else this.setState({ error: true }, () => this.setState({ errorMessage: error.message }));
         })
         .finally(() => {
           this.setState({ loading: false });

@@ -33,7 +33,7 @@ const RegisterTextInputView = styled.View`
   flex: 1;
   margin-top: 15%;
   margin-bottom: 10%;
-  align-self:flex-start;
+  align-self: center;
 `;
 
 const InputTitleView = styled.View`
