@@ -26,6 +26,7 @@ class MapScreen extends React.Component {
       district: '',
       street: '',
       description: '',
+      refreshPin: 1,
       isAddLoading: false,
       emptyError: false,
     };
@@ -248,7 +249,7 @@ class MapScreen extends React.Component {
   }
 
   render() {
-    const { location, pins } = this.state;
+    const { location, pins, refreshPin } = this.state;
     return (
       <>
         {this.modalComponent()}
@@ -283,6 +284,7 @@ class MapScreen extends React.Component {
               showsUserLocation
               showsMyLocationButton
               provider={PROVIDER_GOOGLE}
+              // onMapRead={() => this.setState({ refreshPin: 0 })}
             >
               {pins && pins.map((element) => (
                 <Marker
@@ -292,7 +294,7 @@ class MapScreen extends React.Component {
                     latitude: element[1][0].latitude,
                     longitude: element[1][0].longitude,
                   }}
-                  image={require('../../assets/png/ic_pet_location3.png')}
+                  icon={require('../../assets/png/ic_pet_location3.png')}
                   onPress={() => {
                     this.setState({ currentPinDescription: element[1][1] })
                     this.setState({ currentPinLatitude: element[1][0].latitude })
