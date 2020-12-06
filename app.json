@@ -6,7 +6,9 @@
     "icon": "./src/app/assets/png/appIcon.png",
     "slug": "MeuAumigao",
     "version": "1.0.0",
+    "orientation" : "portrait",
     "ios": {
+      "requireFullScreen": true,
       "bundleIdentifier": "com.kaiquefavero.meuaumigao",
       "buildNumber": "1.0.0",
       "config": {

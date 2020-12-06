@@ -248,6 +248,18 @@ class MapScreen extends React.Component {
     Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`);
   }
 
+  handleDeltaCoords(lat, long) {
+    const ASPECT_RATIO = winWidth / winHeight;
+    const LATITUDE_DELTA = 0.0222;
+    const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+    return {
+      latitude: lat,
+      longitude: long,
+      latitudeDelta: LATITUDE_DELTA,
+      longitudeDelta: LONGITUDE_DELTA,
+    };
+  }
+
   render() {
     const { location, pins, refreshPin } = this.state;
     return (
@@ -278,13 +290,13 @@ class MapScreen extends React.Component {
               initialRegion={{
                 latitude: location.latitude,
                 longitude: location.longitude,
-                latitudeDelta: 0.3,
-                longitudeDelta: 0.3,
+                latitudeDelta: 0.02,
+                longitudeDelta: 0.02,
               }}
               showsUserLocation
               showsMyLocationButton
               provider={PROVIDER_GOOGLE}
-              // onMapRead={() => this.setState({ refreshPin: 0 })}
+            // onMapRead={() => this.setState({ refreshPin: 0 })}
             >
               {pins && pins.map((element) => (
                 <Marker

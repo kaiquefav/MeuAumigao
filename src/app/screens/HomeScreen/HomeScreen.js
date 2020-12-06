@@ -242,7 +242,6 @@ class HomeScreen extends React.Component {
       'Bellota-Bold': require('../../assets/fonts/Bellota-Bold.ttf'),
     })
     BackHandler.addEventListener('hardwareBackPress', () => true);
-    // await this.createUser();
     this.setState({ fontLoaded: true });
   }
 
@@ -343,32 +342,6 @@ class HomeScreen extends React.Component {
       </>
     );
   }
-
-
-
-  async createUser() {
-    firebase.database().ref('users/' + 'user_google_forms_60').set({
-      name: 'Google Forms User',
-      doc: '11111111111',
-      email: 'ricardofalsin@gmail.com',
-      phone: '99999999999',
-      description: 'User based on google forms.',
-      userType: 1,
-      preferences: {
-        sex: '1',
-        size: '2',
-        care: '2',
-        behavior: '2',
-      },
-      pastAdoptions: {
-        pastDogsAdoptions: [
-          'Boxer', 'Labrador',
-        ],
-      }
-    });
-  }
-
-
 
 }
 
