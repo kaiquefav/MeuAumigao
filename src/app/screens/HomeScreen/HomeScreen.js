@@ -180,7 +180,6 @@ class HomeScreen extends React.Component {
         });
       let alreadyExists = false;
       allDogsAux.forEach((element) => {
-        console.log('element :', element);
         alreadyExists = false;
         dogsAux.forEach((item) => {
           if (element.id === item.id) alreadyExists = true;

@@ -9,11 +9,13 @@
     "reset-cache": "react-native start --reset-cache",
     "test": "jest",
     "expo": "expo start",
+    "expo-optimize": "expo optimize",
     "expo-build-android": "expo build:android",
-    "expo-build-ios": "expo build:ios",
+    "expo-build-ios": "expo build:ios -t simulator",
     "expo-build-status": "expo build:status",
     "expo-upgrade": "expo upgrade",
-    "expo-install": "expo install"
+    "expo-install": "expo install",
+    "expo-help": "expo --help"
   },
   "dependencies": {
     "@expo-google-fonts/anton": "^0.1.0",
