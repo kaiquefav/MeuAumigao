@@ -1,5 +1,5 @@
 import React from 'react';
-import * as S from './NewPetScreen.style';
+import * as S from './OtherPetsScreen.style';
 import { Icon } from 'native-base';
 
 class CatsPicker extends React.Component {
@@ -14,73 +14,73 @@ class CatsPicker extends React.Component {
             selectedValue, onValueChange
         } = this.props;
         return (
-            <S.RegisterPicker
+            <S.RacePicker
                 iosHeader='Raça?'
                 headerStyle={{ backgroundColor: '#f1f1f1' }}
                 textStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
                 itemTextStyle={{ fontFamily: 'Bellota-Light', fontSize: Platform.OS === 'ios' ? 18 : 16 }}
-                iosIcon={
-                    <S.BackArrowImage
-                        source={require('../../assets/png/ic_down_black_arrow_button.png')}
-                        resizeMode='contain'
-                    />}
-                headerBackButtonText="Voltar"
-                headerBackButtonTextStyle={{ color: "rgb(0, 104, 191)", fontFamily: 'Bellota-Bold' }}
                 headerTitleStyle={{ color: "rgb(0, 104, 191)", fontFamily: 'Bellota-Bold' }}
-                mode="dropdown"
+                mode="dialog"
                 placeholder="Raça do amigão"
                 placeholderStyle={{ color: "#919191" }}
-                selectedValue={this.state.race}
                 onValueChange={(race) => {
-                    this.setState({ race });
-                    onValueChange(race);
+                    this.setState({ race }, () => onValueChange(race));
                 }}
+                headerBackButtonText=' '
             >
-                <S.RegisterPicker.Item
+                <S.RacePicker.Item
+                    label="Cancelar"
+                    value='Cancelar'
+                />
+                <S.RacePicker.Item
+                    label="Todos"
+                    value='Todos'
+                />
+                <S.RacePicker.Item
                     label="SRD (Sem raça definida)"
                     value='SRD (Sem raça definida)'
                 />
-                <S.RegisterPicker.Item
+                <S.RacePicker.Item
                     label="Angorá"
                     value='Angorá'
                 />
-                <S.RegisterPicker.Item
+                <S.RacePicker.Item
                     label="British Shorthair"
                     value='British Shorthair'
                 />
-                <S.RegisterPicker.Item
+                <S.RacePicker.Item
                     label="Burmese"
                     value='Burmese'
                 />
-                <S.RegisterPicker.Item
+                <S.RacePicker.Item
                     label="Himalaia"
                     value='Himalaia'
                 />
-                <S.RegisterPicker.Item
+                <S.RacePicker.Item
                     label="Maine Coon"
                     value='Maine Coon'
                 />
-                <S.RegisterPicker.Item
+                <S.RacePicker.Item
                     label="Persa"
                     value='Persa'
                 />
-                <S.RegisterPicker.Item
+                <S.RacePicker.Item
                     label="Ragdoll"
                     value='Ragdoll'
                 />
-                <S.RegisterPicker.Item
+                <S.RacePicker.Item
                     label="Siamês"
                     value='Siamês'
                 />
-                <S.RegisterPicker.Item
+                <S.RacePicker.Item
                     label="Siberiano"
                     value='Siberiano'
                 />
-                <S.RegisterPicker.Item
+                <S.RacePicker.Item
                     label="Sphynx"
                     value='Sphynx'
                 />
-            </S.RegisterPicker>
+            </S.RacePicker>
         );
     }
 }

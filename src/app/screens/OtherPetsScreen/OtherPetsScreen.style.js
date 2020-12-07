@@ -2,13 +2,24 @@ import styled from 'styled-components/native';
 import * as Window from '../../utils/windowDimensions/WindowDimensions';
 import { Picker } from 'native-base';
 import PageHeader from '../../components/screens/PageHeader/PageHeader';
+import { Platform } from 'react-native';
 
 const Header = styled(PageHeader)`
 `;
 
+const RacePicker = styled(Picker)`
+  position: absolute;
+  right: ${Platform.OS === 'ios' ? '0px' : '0px'};
+  z-index: 999;
+  padding-top: ${Platform.OS === 'ios' ? '40px' : '50px'};
+  height: ${Platform.OS === 'ios' ? '39px' : '35px'};
+  width: ${Platform.OS === 'ios' ? '39px' : '35px'};
+  top: ${Platform.OS === 'ios' ? '-70px' : '53px'};
+`;
+
 const HeaderView = styled.View`
   flex: 1;
-  background-color: transparent;
+  justify-content: center;
 `;
 
 const CardsFullView = styled.View`
@@ -97,6 +108,12 @@ const RecommendedFlagImage = styled.Image`
   border-bottom-left-radius: 9px;
 `;
 
+const BackArrowImage = styled.Image`
+  height: ${Window.winHeight * 0.04}px;
+  width: ${Window.winWidth * 0.04}px;
+  margin-right: 5%;
+`;
+
 export const BackgroundImage = styled.ImageBackground`
   height: ${Window.winHeight * 1}px;
   width: ${Window.winWidth * 1}px;
@@ -105,6 +122,7 @@ export const BackgroundImage = styled.ImageBackground`
 
 export {
   Header,
+  RacePicker,
   HeaderView,
   CardsFullView,
   FullScrollView,
@@ -115,5 +133,6 @@ export {
   PetNameText,
   ContainerTouchableOpacity,
   PetImage,
+  BackArrowImage,
   RecommendedFlagImage,
 };
