@@ -102,6 +102,9 @@ const PetImageView = styled.View`
 const TextView = styled.View`
 `;
 
+const CallButton = styled.TouchableOpacity`
+`;
+
 const LoginTitleText = styled.Text`
   font-family: Bellota-Bold;
   color: rgb(81, 81, 81);
@@ -117,6 +120,14 @@ const LoginSubTitleText = styled.Text`
   color: rgb(81, 81, 81);
   font-size: ${Platform.OS === 'ios' ? '23px' : '18px'};
   padding-horizontal: 7%;
+`;
+
+const CallText = styled.Text`
+  font-family: Bellota-Bold;
+  color: rgb(0, 104, 191);
+  font-size: ${Platform.OS === 'ios' ? '20px' : '15px'};
+  padding-horizontal: 7%;
+  text-align: center;
 `;
 
 const LoginSubText = styled.Text`
@@ -166,6 +177,7 @@ export {
   ScheduleModalDatePicker,
   DatePickerView,
   DatePickerText,
+  CallText,
   DatePickerTouchableOpacity,
   ModalText,
   ModalTouchableOpacity,
@@ -182,5 +194,6 @@ export {
   LoginSubText,
   RegisterText,
   RegisterTouchableOpacity,
+  CallButton,
   PetImage,
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './PetScreen.style';
 import * as Window from '../../utils/windowDimensions/WindowDimensions';
-import { ActivityIndicator, View, Alert } from 'react-native';
+import { ActivityIndicator, View, Alert, Linking } from 'react-native';
 import * as Font from 'expo-font';
 import TimePicker from "react-native-24h-timepicker";
 import * as firebase from 'firebase';
@@ -281,12 +281,27 @@ class PetScreen extends React.Component {
       'Bellota-Bold': require('../../assets/fonts/Bellota-Bold.ttf'),
     })
     await this.getUserID();
+    if (this.props.route.params.userType === 1) await this.getOngPhone(this.props.route.params.pet.data.owner);
     this.setState({ fontLoaded: true });
   }
 
   handleSchedule = () => {
     this.setState({ timePlaceholder: 'Horário' });
     this.setState({ isVisible: !this.state.isVisible });
+  }
+
+  callOnWhatsApp(text, phone) {
+    Linking.canOpenURL(`whatsapp://send?text=${text}`).then(supported => {
+      if (supported) {
+        return Linking.openURL(
+          `whatsapp://send?phone=55${phone}&text=${text}`
+        );
+      } else {
+        return Linking.openURL(
+          `https://api.whatsapp.com/send?phone=55${phone}&text=${text}`
+        );
+      }
+    })
   }
 
   render() {
@@ -379,6 +394,17 @@ class PetScreen extends React.Component {
                   {this.props.route.params.pet.data.care}
                 </S.LoginSubText>
               </S.TextView>
+
+              {this.props.route.params.userType === 1 && (
+                <>
+                  <S.Divisor />
+                  <S.CallButton
+                    onPress={() => this.callOnWhatsApp('', this.state.ongPhone)}
+                  >
+                    <S.CallText>Clique aqui para entrar em contato com o doador!</S.CallText>
+                  </S.CallButton>
+                </>
+              )}
             </S.AllTextView>
 
             {this.props.route.params.userType === 0
